@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
     <router-view v-if="isRouterAlive" />
   </div>
 </template>
@@ -8,19 +7,19 @@
 <script>
 export default {
   name: 'App',
-  data() {
-   return{isRouterAlive:true}
+  data () {
+    return {isRouterAlive: true}
   },
-  provide() {
+  provide () {
     return {
       reload: this.reload
     }
   },
-  methods:{
-    reload(){
-      this.isRouterAlive=false;
+  methods: {
+    reload () {
+      this.isRouterAlive = false
       this.$nextTick(function () {
-        this.isRouterAlive=true;
+        this.isRouterAlive = true
       })
     }
   }
