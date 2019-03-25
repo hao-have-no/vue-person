@@ -19,6 +19,7 @@ export default {
     reload () {
       this.isRouterAlive = false
       this.$nextTick(function () {
+        //在完成对模型的操作后，视图层还未更新，无法获取ｄｏｍ.ｎｅｘｔＴｉｃｋ函数是对视图层的一个监控，从而拿到新的ｄｏｍ元素
         this.isRouterAlive = true
       })
     }
@@ -33,6 +34,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 2px;
 }
 </style>

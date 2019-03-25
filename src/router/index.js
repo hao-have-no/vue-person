@@ -1,26 +1,23 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWord from '../components/HelloWorld.vue'
-import Person from '../components/person.vue'
+
+import home from '../../component/hello';
+import modArr from '../../component/modArr/modArrRouter';
+import modList from '../../component/modList/modListRouter';
 
 Vue.use(Router)
+
 
 
 export default new Router({
   routes: [
     {
-      path: '/Hello',
-      name: 'Hello',
-      component:HelloWord
+      path: '＊',
+      name: 'home',
+      component:home
     },
-    {
-      path: '/Person',
-      name: 'Person',
-      component:Person
-    },
-    {
-      path: '*',
-      redirect: '/Hello'
-    }
+    ...modArr,
+    ...modList,
+    ...home
   ]
 })
