@@ -5,7 +5,7 @@ export default [
     component: resolve => require(['../../component/modArr/modArrOne'],resolve)
   },
   {
-    path: '/modArrTwo',
+    path: '/modArrOne/detail',
     component: resolve => require(['../../component/modArr/modArrTwo'],resolve)
   }
 ]

@@ -1,6 +1,7 @@
 <template>
     <div>
         <top-nav></top-nav>
+      <button @click="loadRouter">跳转</button>
     </div>
 </template>
 
@@ -9,6 +10,12 @@
     export default {
         name: "hello",
       components: {topNav},
+
+      methods:{
+        loadRouter: function (){
+        this.$router.push({path:"/modArrOne"})
+  }
+      }
 
     }
 </script>
