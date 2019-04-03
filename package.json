@@ -14,8 +14,8 @@
   },
   "dependencies": {
     "axios": "^0.16.2",
-    "iview": "^2.0.0",
-    "mint-ui": "^2.2.13",
+    "element-ui": "^2.7.1",
+    "typescript": "^3.4.1",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
     "vuex": "^2.3.1"
