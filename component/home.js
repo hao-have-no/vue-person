@@ -2,6 +2,10 @@
 export default [
   {
     path: '/',
-    component: resolve => require(['../../component/hello'], resolve)
+    component:resolve => require(['./hello'],resolve)
+  },
+  {
+    path:'/picture',
+    component:resolve　=>require(['./picture/index'],resolve)
   }
 ]

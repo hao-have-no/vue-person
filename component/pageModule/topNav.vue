@@ -2,15 +2,11 @@
     <div>
       this is tou bu
     </div>
-    <div>
-      {{lists}}
-    </div>
 </template>
 
 <script>
-    export default class topNav extends Vue{
+    export default {
 
-      formLabelWidth: string = "60px";
     }
 
 </script>

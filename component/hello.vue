@@ -1,7 +1,8 @@
 <template>
     <div>
         <top-nav></top-nav>
-      <button @click="loadRouter">跳转</button>
+      <button @click="loadRouter">测试－跳转</button>
+      <button @click="loadPicture">仿抖音桌面</button>
     </div>
 </template>
 
@@ -14,9 +15,12 @@
       methods:{
         loadRouter: function (){
         this.$router.push({path:"/modArrOne"})
-  }
-      }
+         },
 
+        loadPicture:function () {
+        this.$router.push({path:"/picture"})
+        }
+      }
     }
 </script>
 
