@@ -6,6 +6,6 @@ export default [
   },
   {
     path:'/picture',
-    component:resolve　=>require(['./picture/index'],resolve)
+    component:resolve　=>require(['./picture'],resolve)
   }
 ]

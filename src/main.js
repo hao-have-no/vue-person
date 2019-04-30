@@ -8,14 +8,20 @@ import App from './App'
 import router from './router'
 import "./assets/iconfont.css"
 import axios from "axios"
+import element from 'element-ui'
 
 Vue.config.productionTip = false
 
-Vue.config.productionTip=false;
 
 Vue.use(VueI18n,{
   i18n:(key,value)=> i18n.t(key,value)
 })
+
+Vue.use(element);
+
+axios.defaults.timeout=300000;
+// Vue.prototype.$http=axios;
+Vue.prototype.$http= axios
 
 /* eslint-disable no-new */
 new Vue({
