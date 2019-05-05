@@ -7,6 +7,7 @@
 </template>
 
 <script>
+  import api from '../../axios/api'
     export default {
         name: "modArrOne",
 
@@ -15,14 +16,15 @@
             this.$router.push({path:"/modArrOne/detail"})
           },
         loadquest:function () {
-            console.log("111")
             var params={
               'item':1,
               'id':333
             }
-          this.$http.get('report/api/getNewsList').then((response)=>{
+            console.log(this.url);
+          var url=api.getUserList();
+          this.$http.get(url).then((response)=>{
             if (response.data.errir_code=200){
-              console.log("ｓｕｃｃｅｓｓ");
+              console.log("success");
             }
           }).catch((response)=>{
             if (response.data&&response.data.error_msg){

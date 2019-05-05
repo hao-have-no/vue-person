@@ -3,6 +3,7 @@
         <top-nav></top-nav>
       <button @click="loadRouter">测试－跳转</button>
       <button @click="loadPicture">仿抖音桌面</button>
+      <button @click="loadLogin">登录</button>
     </div>
 </template>
 
@@ -19,6 +20,9 @@
 
         loadPicture:function () {
         this.$router.push({path:"/picture"})
+        },
+        loadLogin:function(){
+          this.$router.push({path:"/layout"})
         }
       }
     }

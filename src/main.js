@@ -7,7 +7,7 @@ import i18n from "./lang/index"
 import App from './App'
 import router from './router'
 import "./assets/iconfont.css"
-import axios from "axios"
+import axios from "./axios/http"
 import element from 'element-ui'
 
 Vue.config.productionTip = false
@@ -20,7 +20,6 @@ Vue.use(VueI18n,{
 Vue.use(element);
 
 axios.defaults.timeout=300000;
-// Vue.prototype.$http=axios;
 Vue.prototype.$http= axios
 
 /* eslint-disable no-new */
@@ -30,6 +29,5 @@ new Vue({
   i18n,
   store,
   axios,
-  components: { App },
-  template: '<App/>'
-})
+  render:h=>h(App)
+}).$mount('#app');

@@ -19,7 +19,7 @@ const messages={
   }
 };
 
-export function getLanuage(){
+export function getLanguage(){
   const chooseLanguage=Cookies.get("language");
   if (chooseLanguage) return chooseLanguage;
 
@@ -35,7 +35,7 @@ export function getLanuage(){
   return "en"
 }
 const i18n=new VueI18n({
-  locale:getLanuage(),
+  locale:getLanguage(),
   messages
 });
 
