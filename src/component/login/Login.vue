@@ -17,10 +17,9 @@
       async login(){
         const url=api.getLogin();
         const result = await this.$http.get(url).then(data=>data.data);
-        console.log(result);
         await this.$store.commit('changeLogin',{result})
         if (this.$store.state.login){
-          this.$router.push({path:'/'})
+          this.$router.push({path:'/layout'})
         }
       }
     },

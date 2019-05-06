@@ -1,9 +1,8 @@
 <template>
     <div>
       <h1>登录主页</h1>
-      <button @click="getPerMes">敏感接口</button>
       <div>结果:{{result}}</div>
-      <div>登录状态{{this.$store.state.me.login}}}</div>
+      <div>登录状态{{this.$store.state.login}}</div>
       <login></login>
       <logout></logout>
       <me></me>
@@ -24,10 +23,7 @@
         },
 
       methods:{
-          async getPerMes(){
-            const url=api.getUserMes();
-            this.result=await this.$http.get(url).then(res=>res);
-          }
+
       },
       components:{
         login,logout,me

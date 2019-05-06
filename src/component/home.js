@@ -7,14 +7,14 @@ export default [
   },
   {
     path: '/layout',
-    component: resolve => require(['./login/index'], resolve),
+    component:resolve=>require(['./login/index'],resolve),
     name: 'other',
   },
   {
-        path:'/login',
-        component:resolve=>require(['./login/Login'],resolve),
-        name:'login'
-      },
+    path:'/login',
+    component:resolve=>require(['./login/Login'],resolve),
+    name:'login'
+  },
       {
         path:'/logout',
         component:resolve=>require(['./login/Logout'],resolve),

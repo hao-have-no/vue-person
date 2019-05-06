@@ -17,5 +17,8 @@ export default{
   },
   getLogin(){
     return path+'/login'
+  },
+  getLogout(){
+    return path+'/logout'
   }
 }
