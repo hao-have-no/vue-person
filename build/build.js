@@ -1,8 +1,9 @@
 'use strict'
 require('./check-versions')()
-
+// 在process.env加入生产标识
 process.env.NODE_ENV = 'production'
 
+// loading的插件
 const ora = require('ora')
 const rm = require('rimraf')
 const path = require('path')
@@ -10,10 +11,11 @@ const chalk = require('chalk')
 const webpack = require('webpack')
 const config = require('../config')
 const webpackConfig = require('./webpack.prod.conf')
-
+// 实例化ora loading的插件
 const spinner = ora('building for production...')
 spinner.start()
 
+//删除这个文件夹（递归删除）
 rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
   if (err) throw err
   webpack(webpackConfig, (err, stats) => {

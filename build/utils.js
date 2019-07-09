@@ -1,9 +1,14 @@
 'use strict'
 const path = require('path')
-const config = require('../config')
+const config = require('../config');
+//打包css方法
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const packageConfig = require('../package.json')
 
+// 在使用多页面的时候会用到这个包,主要用来匹配文件夹路径组件
+const glob = require('glob');
+
+//判断环境
 exports.assetsPath = function (_path) {
   const assetsSubDirectory = process.env.NODE_ENV === 'production'
     ? config.build.assetsSubDirectory
@@ -31,6 +36,7 @@ exports.cssLoaders = function (options) {
 
   // generate loader string to be used with extract text plugin
   function generateLoaders (loader, loaderOptions) {
+    // 判断是否使用postcss
     const loaders = options.usePostCSS ? [cssLoader, postcssLoader] : [cssLoader]
 
     if (loader) {
@@ -42,8 +48,11 @@ exports.cssLoaders = function (options) {
       })
     }
 
-    // Extract CSS when that option is specified
-    // (which is the case during production build)
+    //,是否需要使用extract这个插件,将css整体抽取出来.
+    //
+    //       其他俩属性看一下api,
+    //       有一个关键的配置属性.
+    //       publicPath   这个属性是指,改写css中资源引用的路径.
     if (options.extract) {
       return ExtractTextPlugin.extract({
         use: loaders,
@@ -98,4 +107,38 @@ exports.createNotifierCallback = () => {
       icon: path.join(__dirname, 'logo.png')
     })
   }
+}
+
+// 多页面模式的路径返回方法
+exports.getEntry = function (globPath) {
+  var entries = {},       //路径集合
+    basename = '',      //路径的标识
+    key = '',           //路径的key值
+    tmp;                //处理数组
+
+  //可以获得传入path路径下的所有文件(返回数组)
+  glob.sync(globPath).forEach(function (item) {
+    /*
+      http://nodejs.cn/api/path.html
+
+      path.basename(path[, ext]) 是用于返回路径的最后部分
+
+      path.basename('/foo/bar/baz/asdf/quux.html');
+      // 返回: 'quux.html'
+
+      path.basename('/foo/bar/baz/asdf/quux.html', '.html');
+      // 返回: 'quux'
+
+      -------
+      path.extname(path) 方法返回 path 的扩展名
+      path.extname('index.html');
+      // 返回: '.html'
+    */
+    basename = path.basename(item, path.extname(item));
+    tmp = item.split('/').splice(2);    //默认进来的地址是 ./src/页面文件夹/***  从src后面那个开始处理
+    key = tmp.shift() + '/' + basename; //获取存放页面的文件夹名称 (拼接成 页面文件夹/对应页面的格式)
+    entries[key] = item;
+  })
+
+  return entries;
 }
