@@ -2,7 +2,7 @@
   <div class="infi-content">
     <div class="left-nav">
       <h4>路由</h4>
-      <button v-for="item in NavRouter" @click="pathRoute(item.url)">{{item.name}}</button>
+      <a v-for="item in NavRouter" @click="pathRoute(item.url)" >{{item.name}}</a>
     </div>
     <div class="right-content">
       <router-view v-if="isRouterAlive" />
@@ -16,6 +16,7 @@
 </template>
 
 <script>
+  import  '../static/style/index.scss'
 export default {
   name: 'App',
   data () {
