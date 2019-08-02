@@ -1,14 +1,43 @@
 <template>
-  <div id="app">
-    <router-view v-if="isRouterAlive" />
+  <div class="infi-content">
+    <div class="left-nav">
+      <h4>路由</h4>
+      <button v-for="item in NavRouter" @click="pathRoute(item.url)">{{item.name}}</button>
+    </div>
+    <div class="right-content">
+      <router-view v-if="isRouterAlive" />
+      <!--<app-messages></app-messages>-->
+    </div>
   </div>
+
+  <!--<div id="app">-->
+    <!--<router-view v-if="isRouterAlive" />-->
+  <!--</div>-->
 </template>
 
 <script>
 export default {
   name: 'App',
   data () {
-    return {isRouterAlive: true}
+    return {
+      isRouterAlive: true,
+      NavRouter:[
+      {
+        id:'1',
+        name:'测试－跳转',
+        url:'/modArrOne',
+      },{
+        id:'2',
+        name:'仿抖音桌面',
+        url:'/picture'
+      },
+      {
+        id:'3',
+        name:'登录',
+        url:'/layout'
+      },
+    ]
+    }
   },
   provide () {
     return {
@@ -22,6 +51,9 @@ export default {
         //在完成对模型的操作后，视图层还未更新，无法获取ｄｏｍ.ｎｅｘｔＴｉｃｋ函数是对视图层的一个监控，从而拿到新的ｄｏｍ元素
         this.isRouterAlive = true
       })
+    },
+    pathRoute(url){
+      this.$router.push({path:url})
     }
   },
 }
