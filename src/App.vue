@@ -6,13 +6,8 @@
     </div>
     <div class="right-content">
       <router-view v-if="isRouterAlive" />
-      <!--<app-messages></app-messages>-->
     </div>
   </div>
-
-  <!--<div id="app">-->
-    <!--<router-view v-if="isRouterAlive" />-->
-  <!--</div>-->
 </template>
 
 <script>
@@ -27,16 +22,22 @@ export default {
         id:'1',
         name:'测试－跳转',
         url:'/modArrOne',
-      },{
-        id:'2',
-        name:'仿抖音桌面',
-        url:'/picture'
       },
+      //   {
+      //   id:'2',
+      //   name:'仿抖音桌面',
+      //   url:'/picture'
+      // },
       {
         id:'3',
         name:'登录',
         url:'/layout'
       },
+      {
+       id:'4',
+       name:'开课吧购物车',
+       url:'/shopping'
+      }
     ]
     }
   },

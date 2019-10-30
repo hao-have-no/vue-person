@@ -15,18 +15,22 @@ export default [
     component:resolve=>require(['./login/Login'],resolve),
     name:'login'
   },
-      {
-        path:'/logout',
-        component:resolve=>require(['./login/Logout'],resolve),
-        name:'logout'
-      },
-      {
-        path:'/me',
-        component:resolve=>require(['./login/me'],resolve),
-        name:'me'
-      },
   {
-    path:'/picture',
-    component:resolve　=>require(['./picture'],resolve),
-  }
+    path:'/logout',
+    component:resolve=>require(['./login/Logout'],resolve),
+    name:'logout'
+  },
+  {
+    path:'/me',
+    component:resolve=>require(['./login/me'],resolve),
+    name:'me'
+  },
+  // {
+  //   path:'/picture',
+  //   component:resolve　=>require(['./picture'],resolve),
+  // },
+  {
+    path: '/shopping',
+    component: resolve => require(['./shopping/view'],resolve)
+  },
 ]
