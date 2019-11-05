@@ -1,8 +1,8 @@
 <template>
-  <div class="infi-content">
+  <div id="app" class="infi-content">
     <div class="left-nav">
       <h4>路由</h4>
-      <a v-for="item in NavRouter" @click="pathRoute(item.url)" >{{item.name}}</a>
+      <a v-for="item in NavRouter" @click="pathRoute(item)" v-bind:class="{active:activeRouter === item.id}">{{item.name}}</a>
     </div>
     <div class="right-content">
       <router-view v-if="isRouterAlive" />
@@ -17,6 +17,7 @@ export default {
   data () {
     return {
       isRouterAlive: true,
+      activeRouter:"",
       NavRouter:[
       {
         id:'1',
@@ -37,13 +38,24 @@ export default {
        id:'4',
        name:'开课吧购物车',
        url:'/shopping'
-      }
+      },
+      {
+        id:'5',
+        name:'开课吧-element组件使用',
+        url:'/element-first'
+      },
+        {
+          id:'6',
+          name:'自定义element组件',
+          url:'/element-myself'
+        }
     ]
     }
   },
   provide () {
     return {
-      reload: this.reload
+      reload: this.reload,
+      someval:"console"
     }
   },
   methods: {
@@ -54,8 +66,9 @@ export default {
         this.isRouterAlive = true
       })
     },
-    pathRoute(url){
-      this.$router.push({path:url})
+    pathRoute(option){
+      this.activeRouter=option.id;
+      this.$router.push({path:option.url})
     }
   },
 }

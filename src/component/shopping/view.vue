@@ -23,28 +23,19 @@
             <td>{{item.id}}</td>
             <td>{{item.name}}</td>
             <td>{{item.price}}</td>
-            <td><button v-on:click="addLesson">添加购物车</button></td>
+            <td><button @click="addLesson(index)">添加购物车</button></td>
           </tr>
         </table>
       </div>
-      <div>
-        <h3>购物车</h3>
-        <div>
-          <table>
-            <tr v-for="(item,index) in bus">
-              <td>{{item.id}}</td>
-              <td>{{item.name}}</td>
-              <td>{{item.price}}</td>
-            </tr>
-          </table>
-        </div>
-      </div>
+      <Bus :current-item="bus" @removeItem="remove"></Bus>
     </div>
 </template>
 
 <script>
+    import Bus from './bus';
     export default {
       name: "shopping",
+      components: {Bus},
       data() {
         return {
           stateLesson:{
@@ -70,16 +61,29 @@
       methods:{
         //添加到课程列表
         addList:function(){
-          this.lesson.push(this.stateLesson);
-          this.stateLesson.map(item=>{
-            this.stateLesson[item]=''
-          })
+          var isHave=this.lesson.find(item=>item.id==this.stateLesson.id||item.name == this.stateLesson.name);
+          if (!isHave){
+            var lesson=JSON.parse(JSON.stringify(this.stateLesson));
+            this.lesson.push(lesson);
+          }
+          for (let i in this.stateLesson){
+            this.stateLesson[i]="";
+          }
         },
         //添加到购物车
-        addLesson:function(){
-
+        addLesson:function(index){
+             let item=this.lesson[index];
+             let isHasCourse=this.bus.find(obj =>obj.id == item.id);
+             if (isHasCourse){
+               isHasCourse.number+=1;
+             }else{
+               this.bus.push({...item,number:1,isActive:true});
+             }
+        },
+        remove:function (id) {
+          this.bus.splice(id,1);
         }
-      }
+      },
     }
 </script>
 

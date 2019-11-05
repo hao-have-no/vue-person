@@ -9,6 +9,7 @@ import router from './router'
 import "./assets/iconfont.css"
 import axios from "./axios/http"
 import element from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
 
 Vue.config.productionTip = false
 

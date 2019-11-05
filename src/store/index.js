@@ -27,18 +27,18 @@ export default new Vuex.Store({
     setLanguage({commit},language){
       commit("SET_LANGUAGE",language);
     },
-    async checkMe({commit}){
-      var myDate = new Date();
-      var ts=Math.ceil(myDate.getTime()/1000);
-      //请求／ｍｅ接口，对登录信息进行判断，并保留状态
-      const url=api.getMe();
-      const result=await Vue.prototype.$http.get(url).then(data =>data.data);
-      var loginMark=result.data.message[0].ts;
-      let mark=(ts-result.data.message[0].ts) > 3600?false:true;
-      if (!mark){
-          router.push({name:'login'})
-      }
-      commit('changeLogin',{loginMark})
-    }
+    // async checkMe({commit}){
+    //   var myDate = new Date();
+    //   var ts=Math.ceil(myDate.getTime()/1000);
+    //   //请求／ｍｅ接口，对登录信息进行判断，并保留状态
+    //   const url=api.getMe();
+    //   const result=await Vue.prototype.$http.get(url).then(data =>data.data);
+    //   var loginMark=result.data.message[0].ts;
+    //   let mark=(ts-result.data.message[0].ts) > 3600?false:true;
+    //   if (!mark){
+    //       router.push({name:'login'})
+    //   }
+    //   commit('changeLogin',{loginMark})
+    // }
   }
 });
