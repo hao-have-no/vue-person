@@ -12,22 +12,25 @@
           <!--<myself-input :value="value" @input="value = arguments[0]"></myself-input>-->
               <myself-input v-model="model.username"></myself-input>
           </myself-form-item>
-          <myself-form-item label="用户名" prop="password">
+          <myself-form-item label="密码" prop="password">
             <myself-input v-model="model.password" type="password"></myself-input>
           </myself-form-item>
       </myself-form>
       {{model.username}}
-      {{someval}}
     </div>
 </template>
 
 <script>
+  /**总结：
+   * 1.vue-核心api
+   * 2.element表单的实现（1.双向绑定  2.slot插槽  3.第三方插件（validate使用））
+   * 3.
+   */
     import MyselfInput from '../../component/element-self/selfInput'
     import MyselfFormItem from '../../component/element-self/selfFormItem'
-    import MyselfForm from '../../component/element-self/selfFormItem'
+    import MyselfForm from '../../component/element-self/selfForm'
     export default {
         name: "element-practice",
-        inject:['someval'],
         data(){
           return {
             model:{
@@ -35,7 +38,7 @@
               password:""
             },
             rules:{
-              username:[{required:true,message:"请输入用户名"}],
+              username:[{required:true,message:"请输入用户名"},{min:6,max:10,message:"请输入6-10的用户名"}],
               password:[{required:true,message:"请输入密码"}]
             }
           }

@@ -6,14 +6,20 @@
 
 <script>
   export default {
-    name: "self-form-item",
+    name: "self-form",
+    provide(){
+      return {
+        kForm: this
+      }
+    },
     props:{
+      //约束传进来的数据类型
       model:{
-        type:"Object",
+        type:Object,
         required:true
       },
       rules:{
-        type:"Object",
+        type:Object,
         required:false
       }
     },

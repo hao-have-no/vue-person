@@ -54,8 +54,7 @@ export default {
   },
   provide () {
     return {
-      reload: this.reload,
-      someval:"console"
+      reload: this.reload
     }
   },
   methods: {
@@ -69,8 +68,16 @@ export default {
     pathRoute(option){
       this.activeRouter=option.id;
       this.$router.push({path:option.url})
+    },
+    findRoute(){
+      let onRoute=window.location.pathname
+      let isHas=this.NavRouter.find(item=>{return item.url === onRoute});
+      this.activeRouter=isHas?isHas.id:this.NavRouter[0].id;
     }
   },
+  mounted() {
+    this.findRoute();
+  }
 }
 </script>
 
