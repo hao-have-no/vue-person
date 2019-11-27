@@ -21,7 +21,32 @@ Vue.use(VueI18n,{
 Vue.use(element);
 
 axios.defaults.timeout=300000;
-Vue.prototype.$http= axios
+Vue.prototype.$http= axios;
+Vue.prototype.$store=store;
+
+router.beforeEach((to,from,next)=>{
+  console.log('berore each',to,from)
+  next();
+});
+router.beforeResolve((to,from,next)=>{
+  console.log('berore resolve',to,from);
+  next();
+});
+router.afterEach((to,from,next)=>{
+  console.log('after each')
+})
+
+//增加全局路由守卫
+// beforeEach(经常用，一般用于权限鉴定),beforeResolve（比前置钩子晚一些）,afterEach（）
+
+//路由独享守卫，卸载配置文件（ｒｏｕｔｅｒ的ｉｎｄｅｘ文件中）
+//beforeEnter,afterEnter
+
+//组件内路由守卫
+//beforeRouterEnter(渲染组件的路由被confirm前调用，但是ｔｈｉｓ获取不了任何值，并为实例化),
+// beforeRouterUpdate(路由改变后，ｔｈｉｓ可以拿到相关值)
+// beforeRouterLeave（导航离开时，访问组件，通过ｎｅｘｔ（ｆａｌｓｅ）防止未保存前的离开）
+
 
 /* eslint-disable no-new */
 new Vue({

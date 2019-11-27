@@ -6,6 +6,7 @@
     </div>
     <div class="right-content">
       <router-view v-if="isRouterAlive" />
+      <router-view name="child" v-if="isRouterAlive"></router-view>
     </div>
   </div>
 </template>
@@ -19,11 +20,11 @@ export default {
       isRouterAlive: true,
       activeRouter:"",
       NavRouter:[
-      {
-        id:'1',
-        name:'测试－跳转',
-        url:'/modArrOne',
-      },
+      // {
+      //   id:'1',
+      //   name:'测试－跳转',
+      //   url:'/modArrOne',
+      // },
       //   {
       //   id:'2',
       //   name:'仿抖音桌面',
@@ -44,11 +45,21 @@ export default {
         name:'开课吧-element组件使用',
         url:'/element-first'
       },
-        {
-          id:'6',
-          name:'自定义element组件',
-          url:'/element-myself'
-        }
+      {
+        id:'6',
+        name:'自定义element组件',
+        url:'/element-myself'
+      },
+      {
+        id:'7',
+        name:'复合视图（匿名视图）',
+        url:'/recombination'
+      },
+      {
+        id:'8',
+        name:'父子路由（匿名视图）',
+        url:'/nest'
+      }
     ]
     }
   },
@@ -71,13 +82,13 @@ export default {
     },
     findRoute(){
       let onRoute=window.location.pathname
-      let isHas=this.NavRouter.find(item=>{return item.url === onRoute});
+      let isHas=this.NavRouter.find(item=>{return onRoute.indexOf(item.url) > -1});
       this.activeRouter=isHas?isHas.id:this.NavRouter[0].id;
     }
   },
   mounted() {
     this.findRoute();
-  }
+  },
 }
 </script>
 
