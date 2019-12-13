@@ -30,10 +30,15 @@ export default {
       //   name:'仿抖音桌面',
       //   url:'/picture'
       // },
+        {
+          id:'1',
+          name:'主页',
+          url:'/',
+        },
       {
         id:'3',
         name:'登录',
-        url:'/layout'
+        url:'/login'
       },
       {
        id:'4',

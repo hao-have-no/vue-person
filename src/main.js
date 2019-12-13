@@ -49,7 +49,7 @@ router.afterEach((to,from,next)=>{
 
 
 /* eslint-disable no-new */
-new Vue({
+var vue=new Vue({
   el: '#app',
   router,
   i18n,
@@ -57,3 +57,5 @@ new Vue({
   axios,
   render:h=>h(App)
 }).$mount('#app');
+
+export default vue

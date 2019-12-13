@@ -6,7 +6,7 @@ export default [
     name:'index'
   },
   {
-    path: '/layout',
+    path: '/login',
     component:resolve=>require(['./login/index'],resolve),
     name: 'other',
   },
@@ -31,6 +31,10 @@ export default [
   // },
   {
     path: '/shopping',
-    component: resolve => require(['./shopping/view'],resolve)
+    component: resolve => require(['./shopping/view'],resolve),
+    meta:{
+      //增加权限标识
+      auth:true
+    }
   },
 ]

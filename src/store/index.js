@@ -1,10 +1,11 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import Cookies from "js-cookie";
 import {getLanguage} from "../lang/index";
 import router from '../router/index'
 import api from "../axios/api"
 import { mapActions } from 'vuex';
+
+import us from '../service/user';
 
 Vue.use(Vuex);
 
@@ -14,7 +15,8 @@ export default new Vuex.Store({
     // 相关变量
     // language:getLanguage,
     // login:false
-    count: 5
+    count: 5,
+    isLogin:localStorage.getItem('token')?true:false
   },
   mutations:{
     //操作方法（具体的外部请求处理方法）
@@ -30,6 +32,9 @@ export default new Vuex.Store({
     },
     decrement(state){
       state.count --
+    },
+    setLoginState(state,b){
+      state.isLogin = b;
     }
   },
   actions:{
@@ -38,6 +43,28 @@ export default new Vuex.Store({
     },
     decrement:({commit})=>{
       commit('decrement');
+    },
+    login:({commit},user)=>{
+      //登录请求,controller
+        return new Promise((resolve, reject) =>{
+          us.login(user).then(res => {
+            if (res.data.data.code === 200) {
+              const {code, token} = res.data.data;
+                //登陆成功
+                commit('setLoginState', true);
+                localStorage.setItem('token', token);
+              resolve(code);
+            }else{
+              resolve(res.data.data);
+            }
+          });
+        })
+    },
+
+    logout:({commit})=>{
+      //清缓存，重置状态
+      localStorage.removeItem('token');
+      commit('setLoginState', false);
     }
 
     //承接外部请求，进行分发处理

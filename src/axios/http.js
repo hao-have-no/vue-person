@@ -15,7 +15,9 @@ const service =axios.create({
 service.interceptors.request.use(config=>{
   config.method === 'post'?config.data=qs.stringify({...config.data}):config.params={...config.data};
   config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
-
+  if (localStorage.getItem('ctoken')){
+    config.headers['ctoken'] = localStorage.getItem('ctoken')
+  }
   return config;
 },error => {
   Promise.reject(error);
