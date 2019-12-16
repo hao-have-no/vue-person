@@ -25,7 +25,8 @@
     "vue": "^2.6.10",
     "vue-i18n": "^8.10.0",
     "vue-router": "^3.0.6",
-    "vuex": "^2.3.1"
+    "vuex": "^2.3.1",
+    "qs": "latest"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

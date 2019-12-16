@@ -2,6 +2,9 @@ import axios from "axios";
 import qs from "qs";
 import url from 'url'
 import router from '../router/index'
+import main from '../main'
+
+//axios withcredentials：请求携带cookies信息的参数
 
 /**
  创建ａｘｉｏｓ实例
@@ -15,12 +18,14 @@ const service =axios.create({
 service.interceptors.request.use(config=>{
   config.method === 'post'?config.data=qs.stringify({...config.data}):config.params={...config.data};
   config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
-  if (localStorage.getItem('ctoken')){
-    config.headers['ctoken'] = localStorage.getItem('ctoken')
+  if (localStorage.getItem('token')){
+    config.headers['token'] = localStorage.getItem('token')
+    //结合当代标准，重新定义符合后台规范的令牌
+    // config.headers['Authorization'] = 'Bearer' + localStorage.getItem('token');
   }
   return config;
 },error => {
-  Promise.reject(error);
+  return Promise.reject(error);
 })
 /****** respone拦截器==>对响应做处理 ******/
 service.interceptors.response.use(
@@ -32,28 +37,34 @@ service.interceptors.response.use(
     }
   },
   error => {  //响应错误处理
+    if(error.response.status === 401){
+      //清空vuex和localStorng(代表着令牌失效和登录错误)，应该重置登录状态
+      main.$store.dispatch('logout');
+      //跳转登录界面
+      main.$router.push("/login");
+    }
 
-    if (error.response.status == 404){
+    if (error.response.status === 404){
       const pathname=url.parse(error.config.url).pathname;
-      console.log("lanjie")
+      console.log("连接错误")
       return {
         data:pathname
       }
-    }else if(error.response.status == 403){
+    }else if(error.response.status === 403){
       router.push({
          name:'login'
        })
-    }else if (error.response.status == 504){
+    }else if (error.response.status === 504){
       const pathname=url.parse(error.config.url).pathname;
-      var data={
-        result:pathname,
-        mes:'地址错误'
-      }
-      return data;
+      const mes= {
+        result: pathname,
+        mes: '地址错误'
+      };
+        error ={...mes};
     }else{
     console.log('error');
-    return Promise.reject(error)
     }
+    return Promise.reject(error);
   }
 );
 
