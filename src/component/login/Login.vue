@@ -25,7 +25,7 @@
 </template>
 
 <script>
-  // import api from '../../axios/api'
+
   export default {
     data(){
       //验证密码

@@ -10,31 +10,46 @@ import "./assets/iconfont.css"
 import axios from "./axios/http"
 import element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import CreateAPI from 'vue-create-api';
+import CartAnim from './component/cart-anim/CartAnim';
+import create from './utils/utils'
 
-Vue.config.productionTip = false
 
+Vue.config.productionTip = false;
+
+//给vue注册实例方法,使用$createCardAnim来创建
 
 Vue.use(VueI18n,{
   i18n:(key,value)=> i18n.t(key,value)
-})
+});
 
 Vue.use(element);
+
+// Vue.use(CreateAPI, {
+//   componentPrefix: 'cube-',
+//   apiPrefix: '$create-'
+// });
+//
+// Vue.createAPI(CartAnim,['ontransitionend']);
+
+//使用自定义的create-api
+Vue.prototype.$create=create;
 
 axios.defaults.timeout=300000;
 Vue.prototype.$http= axios;
 Vue.prototype.$store=store;
 
-router.beforeEach((to,from,next)=>{
-  console.log('berore each',to,from)
-  next();
-});
-router.beforeResolve((to,from,next)=>{
-  console.log('berore resolve',to,from);
-  next();
-});
-router.afterEach((to,from,next)=>{
-  console.log('after each')
-})
+// router.beforeEach((to,from,next)=>{
+//   console.log('berore each',to,from)
+//   next();
+// });
+// router.beforeResolve((to,from,next)=>{
+//   console.log('berore resolve',to,from);
+//   next();
+// });
+// router.afterEach((to,from,next)=>{
+//   console.log('after each')
+// })
 
 //增加全局路由守卫
 // beforeEach(经常用，一般用于权限鉴定),beforeResolve（比前置钩子晚一些）,afterEach（）
