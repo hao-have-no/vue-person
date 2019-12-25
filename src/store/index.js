@@ -37,9 +37,9 @@ export default new Vuex.Store({
   //   decrement(state){
   //     state.count --
   //   },
-  //   setLoginState(state,b){
-  //     state.isLogin = b;
-  //   }
+    setLoginState(state,b){
+      state.isLogin = b;
+    },
   // },
   // actions:{
   //   increment:({commit})=>{
