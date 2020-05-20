@@ -61,16 +61,16 @@ export default {
           name: '自定义element组件',
           url: '/element-myself'
         },
-        {
-          id: '7',
-          name: '复合视图（匿名视图）',
-          url: '/recombination'
-        },
-        {
-          id: '8',
-          name: '父子路由（匿名视图）',
-          url: '/nest'
-        }
+        // {
+        //   id: '7',
+        //   name: '复合视图（匿名视图）',
+        //   url: '/recombination'
+        // },
+        // {
+        //   id: '8',
+        //   name: '父子路由（匿名视图）',
+        //   url: '/nest'
+        // }
       ],
     }
   },

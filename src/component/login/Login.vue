@@ -3,7 +3,7 @@
     <!--<h1>登录</h1>-->
     <!--<Button @click="login">登录</Button>-->
   <!--</div>-->
-  <div class="login-modal" v-if="!$store.state.isLogin">
+  <div class="login-modal" v-if="!$store.state.user.isLogin">
     <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
     <el-form-item label="账号" prop="name">
       <el-input v-model="ruleForm.name"></el-input>
@@ -16,9 +16,10 @@
     </el-form-item>
   </el-form>
   </div>
-  <div class="login-modal" v-else="loginTip">
+  <div class="login-modal" v-else="$store.state.user.isLogin">
     <div>
       <el-avatar icon="el-icon-user-solid"></el-avatar>
+      {{$store.state.user.userName}}
     </div>
     <el-button type="danger" round @click="loginOut">退出登录</el-button>
   </div>
@@ -100,7 +101,6 @@
         });
       }
     },
-
   }
 </script>
 

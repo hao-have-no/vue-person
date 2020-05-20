@@ -1,5 +1,5 @@
-const host="http://127.0.0.1:12138"
-const path=host+"/record"
+const host="http://192.168.1.13:12138";
+const path=host+"/record";
 
 export default{
   root:path,

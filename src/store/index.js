@@ -20,9 +20,9 @@ export default new Vuex.Store({
     // language:getLanguage,
     // login:false
     // count: 5,
-    isLogin:localStorage.getItem('token')?true:false
+    // isLogin:!!localStorage.getItem('token')
   },
-  mutations:{
+  // mutations:{
   //   //操作方法（具体的外部请求处理方法）
   //   // SET_LANGUAGE:(state,language)=>{
   //   //   state.language=language;
@@ -37,9 +37,9 @@ export default new Vuex.Store({
   //   decrement(state){
   //     state.count --
   //   },
-    setLoginState(state,b){
-      state.isLogin = b;
-    },
+  //   setLoginState(state,b){
+  //     state.isLogin = b;
+  //   },
   // },
   // actions:{
   //   increment:({commit})=>{
@@ -48,28 +48,28 @@ export default new Vuex.Store({
   //   decrement:({commit})=>{
   //     commit('decrement');
   //   },
-    login:({commit},user)=>{
-      //登录请求,controller
-        return new Promise((resolve, reject) =>{
-          us.login(user).then(res => {
-            if (res.data.data.code === 200) {
-              const {code, token} = res.data.data;
-                //登陆成功
-                commit('setLoginState', true);
-                localStorage.setItem('token', token);
-              resolve(code);
-            }else{
-              resolve(res.data.data);
-            }
-          });
-        })
-    },
+  //   login:({commit},user)=>{
+  //     //登录请求,controller
+  //       return new Promise((resolve, reject) =>{
+  //         us.login(user).then(res => {
+  //           if (res.data.data.code === 200) {
+  //             const {code, token} = res.data.data;
+  //               //登陆成功
+  //               commit('setLoginState', true);
+  //               localStorage.setItem('token', token);
+  //             resolve(code);
+  //           }else{
+  //             resolve(res.data.data);
+  //           }
+  //         });
+  //       })
+  //   },
 
-    logout:({commit})=>{
-      //清缓存，重置状态
-      localStorage.removeItem('token');
-      commit('setLoginState', false);
-    }
+    // logout:({commit})=>{
+    //   //清缓存，重置状态
+    //   localStorage.removeItem('token');
+    //   commit('setLoginState', false);
+    // }
   //
   //   //承接外部请求，进行分发处理
   //
@@ -92,7 +92,7 @@ export default new Vuex.Store({
   //   //   }
   //   //   commit('changeLogin',{loginMark})
   //   // }
-  },
+  // },
   // //计算属性
   // // getters:{
   // //   count:

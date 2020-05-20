@@ -2,11 +2,19 @@
 export default [
   {
     path: '/element-first',
-    component: resolve => require(['../view/kaikeba-practice/element-practice'],resolve)
+    component: resolve => require(['../view/kaikeba-practice/element-practice'],resolve),
+    meta:{
+      //增加权限标识
+      auth:true
+    }
   },
   {
     path: '/element-myself',
-    component: resolve => require(['../view/kaikeba-practice/element-myself'],resolve)
+    component: resolve => require(['../view/kaikeba-practice/element-myself'],resolve),
+    meta:{
+      //增加权限标识
+      auth:true
+    }
   },
   {
     //验证-匿名视图-复合路由
@@ -26,5 +34,9 @@ export default [
       path:'test',
       component:resolve =>require(['../view/router-components/children-components'],resolve)
     }]
+  },
+  {
+    path:'/fileUpload',
+    component:resolve=>require()
   }
 ]

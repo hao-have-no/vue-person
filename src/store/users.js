@@ -2,7 +2,8 @@ import us from '../service/user';
 
 export default{
   state:{
-    isLogin:!!localStorage.getItem('token')
+    isLogin:!!localStorage.getItem('token'),
+    userName:localStorage.getItem('userName')
   },
   mutations:{
     setLoginState:(state,b)=>{
@@ -15,10 +16,11 @@ export default{
           return new Promise((resolve, reject) =>{
             us.login(user).then(res => {
               if (res.data.data.code === 200) {
-                const {code, token} = res.data.data;
+                const {code, token, username} = res.data.data;
                   //登陆成功
                   commit('setLoginState', true);
                   localStorage.setItem('token', token);
+                  localStorage.setItem('userName',username);
                 resolve(code);
               }else{
                 resolve(res.data.data);
