@@ -10,7 +10,7 @@
      </div>
      <div>总共:{{cartTotal}}----总价:{{total}}</div>
      <el-button type="warning" :disabled="true" v-if="total<minTotal">还差{{minTotal-total}}</el-button>
-     <el-button type="primary" v-else>下单
+     <el-button type="primary" v-else @click="settle()">下单
      </el-button>
    </div>
 </template>
@@ -37,6 +37,10 @@
           },
           removeCart(index){
             this.$store.commit("cartremove",index);
+          },
+          settle(){
+            // this.$store.commit("settlecart",this.cart)
+            console.log(this.cart);
           }
       }
     }

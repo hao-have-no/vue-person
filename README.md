@@ -98,3 +98,10 @@ ssr:只有 beforeCreate和 created 会在服务器端渲染(SSR)过程中被调�
 
 fetch:前后台都会走
 
+
+关于Nuxt-vue的通用可扩展路由(使用场景:需要通过来分别crf表单类型)
+在nuxt.config中引用最新相关插件(
+1.可见nuxt文档中的router的api说明
+2.错误页面404)
+
+

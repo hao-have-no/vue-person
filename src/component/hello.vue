@@ -32,15 +32,6 @@
         methods:{
           ...mapActions(['getGood']),//分发功能
           startCardAnim(el){
-            //创建小球动画的实例
-            // const anim=this.$createCartAnim({
-            //     ontransitionend(){
-            //       anim.remove();
-            //     }
-            // });
-            //
-            // anim.start(el);
-
             //自定义实现
             const anim=this.$create(CardAnim,{pos:{left:"30%",bottom:"16px"}});
             anim.start(el);

@@ -29,6 +29,7 @@
     "vue-create-api": "^0.2.3",
     "vue-i18n": "^8.10.0",
     "vue-router": "^3.0.6",
+    "vue-server-renderer": "^2.6.11",
     "vuex": "^2.3.1"
   },
   "devDependencies": {

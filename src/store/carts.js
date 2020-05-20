@@ -23,6 +23,9 @@ export default {
     },
     cartadd(state,index){
       state.cart[index].cartCount +=1;
+    },
+    settlecart(state,modal){
+
     }
   },
   getters:{
