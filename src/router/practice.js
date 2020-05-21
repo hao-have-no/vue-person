@@ -37,6 +37,6 @@ export default [
   },
   {
     path:'/fileUpload',
-    component:resolve=>require()
+    component:resolve=>require(['../component/upload/fileUpload'],resolve)
   }
 ]

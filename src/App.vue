@@ -61,6 +61,11 @@ export default {
           name: '自定义element组件',
           url: '/element-myself'
         },
+        {
+          id:'7',
+          name:'大文件上传',
+          url:'/fileUpload'
+        }
         // {
         //   id: '7',
         //   name: '复合视图（匿名视图）',

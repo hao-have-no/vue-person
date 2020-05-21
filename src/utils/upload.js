@@ -1,4 +1,4 @@
-const baseUrl = '';
+const baseUrl = '192.168.1.13:12380';
 
 export function request({
   url,
@@ -20,7 +20,7 @@ export function request({
       if(xhr.readyState === 4) {
         if(xhr.status === 200){
           if(requestList){
-            // 删除碎片列表
+            // 删除已经发送成功的切片
             const i = requestList.findIndex(req=>req===xhr)
             requestList.splice(i, 1)
           }
@@ -33,21 +33,20 @@ export function request({
       }
     };
 
-    requestList?.push(xhr);
+    requestList&&xhr.push(xhr);
 
     xhr.send(data);
-  })
-
-  export async function post(url,data){
-    let ret = await request({
-      url,
-      data:JSON.stringify(data),
-      headers:{
-        "content-type":"application/json"
-      }
-    });
-    return JSON.parse(ret.data);
-  }
+  });
+}
 
 
+export async function post(url,data){
+  let ret = await request({
+    url,
+    data:JSON.stringify(data),
+    headers:{
+      "content-type":"application/json"
+    }
+  });
+  return JSON.parse(ret.data);
 }
