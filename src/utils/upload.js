@@ -1,4 +1,4 @@
-const baseUrl = '192.168.1.13:12380';
+const baseUrl = 'http://192.168.1.13:12138/record';
 
 export function request({
   url,
@@ -10,7 +10,7 @@ export function request({
 }){
   return new Promise((resolve,reject)=>{
     const xhr = new XMLHttpRequest();
-    xhr.upload = onProgress;
+    xhr.upload.onprogress = onProgress;
     xhr.open(method,baseUrl+url);
     Object.keys(headers).forEach(key=>{
       xhr.setRequestHeader(key,headers[key])
@@ -33,8 +33,9 @@ export function request({
       }
     };
 
-    requestList&&xhr.push(xhr);
+    requestList&&requestList.push(xhr);
 
+    console.log('data',data);
     xhr.send(data);
   });
 }

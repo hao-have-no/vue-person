@@ -30,9 +30,14 @@
             }"
               :style="{height:chunk.progress+'%'}"
             >
-              {{chunk.index}}
+              <!--{{chunk.index}}-->
+               <i v-if="chunk.progress<100" class="el-icon-loading" style="color:#F56C6C;"></i>
             </div>
           </div>
+        </div>
+        <div v-if="fileAddress">
+          <h3>上传成功</h3>
+          <p>文件地址:<a :href="fileAddress">{{fileName}}</a></p>
         </div>
       </div>
     </div>
@@ -43,9 +48,9 @@
     width 100px
     overflow hidden
   .cube
-    width 14px
-    height 14px
-    line-height 12px;
+    width 80px
+    height 80px
+    line-height 80px;
     border 1px solid black
     background  #eee
     float left
@@ -61,16 +66,14 @@
   import sparkMd5 from "spark-md5";
   import {post, request} from "../../utils/upload";
 
-  //定义文件的基本常量
-    const　SIZE = 0.2*1024*1024;
-    //定义基本的状态标识
-    const STATUS = {
-      wait:'WAIT',
-      pause:'PAUSE',
-      uploading: "UPLOADING",
-      error: "ERROR",
-      done: "DONE",
-    };
+  const SIZE = 0.2 * 1024 * 1024;
+  const Status = {
+    wait: "wait",
+    pause: "pause",
+    uploading: "uploading",
+    error: "error",
+    done: "done",
+  };
 
     //技术点:
     //由于大文件上传采用hash计算，随后进行切分,意外情况下每一个片段也不会丢掉错乱
@@ -89,28 +92,33 @@
           chunks:[], //碎片列表
           hashProgress:0, //计算hash的进度
           requestList:[],  //请求列表，方便abort
-          STATUS,　//常量枚举档案
-          status:STATUS.wait, //默认等待状态
-          fakeProgress:0 //总的文件上传进度（通过监听各切片计算得出的）
+          Status,　//常量枚举档案
+          status:Status.wait, //默认等待状态
+          fakeProgress:0, //总的文件上传进度（通过监听各切片计算得出的）
+          fileAddress:null,
+          fileName:null
         }),
 
       computed:{
           //进度条改善为正方形
           cubeWidth(){
-            return Math.ceil(Math.sqrt(this.chunks.length))*16
+            return Math.ceil(Math.sqrt(this.chunks.length))*84
           },
 
         //更新进度条
         uploadProgress(){
-            if (this.container.file||!this.chunks.length) return 0;
+            console.log(this.container.file,this.chunks.length);
+            if (!this.container.file||!this.chunks.length) return 0;
             const loaded = this.chunks.map(item=>item.size*item.progress)
               .reduce((acc,cur)=>acc+cur);
+            console.log('progress',loaded,this.container.file.size);
             return parseInt((loaded/this.container.file.size).toFixed(2));
         }
       },
 
       watch:{
           uploadProgress(now){
+            console.log('fake',now);
              if (now>this.fakeProgress){
                this.fakeProgress = now;
              }
@@ -126,19 +134,19 @@
 
           //重新发送
           async handleResume(){
-            this.status = STATUS.uploading;
+            this.status = Status.uploading;
 
-            const { uploadList } = await this.verify(
+            const uploadList = await this.verify(
               this.container.file.name,
               this.container.hash
             );
 
-            await  this.uploadChunks(uploadList)
+            await this.uploadChunks(uploadList)
           },
 
           //暂停
           handlePause(){
-            this.status = STATUS.pause;
+            this.status = Status.pause;
             this.requestList.forEach(xhr=>xhr&&xhr.abort());//.push等用法实际是xhr.abort(),因为原型链的关系
             this.requestList = [];
           },
@@ -164,34 +172,52 @@
 
           //异步上传文件切片－进行并发控制
           async sendRequest(urls,max = 4,retrys = 3){
-            console.log(urls,max);
             return new Promise((resolve, reject) => {
                 const len = urls.length;
-                let idx = 0;
                 let counter = 0; //已上传文件数
                 const retryList = []; //abort（暂停）的列表
                 const start = async ()=>{
                     //控制并发数
                     while (counter<len && max>0){
+                      console.log(urls,max);
                       max--;　//如果有请求进来，占用并发数
-                      console.log(idx,'start');
-                      const i = urls.findIndex(v=>v.status === STATUS.wait || v.status === STATUS.error);//等待或者error
-                      urls[i].status = STATUS.uploading; //修改状态
+                      const i = urls.findIndex(v=>v.status == Status.wait || v.status == Status.error);//等待或者error
+                      if (i == -1){
+                        if (counter === len){
+                          resolve();
+                          return;
+                        }else{
+                          console.log('error-url',urls);
+                            start();
+                          return;
+                        }
+                      }
+
+                      urls[i].status = Status.uploading; //修改状态
                       const form = urls[i].form;
                       const index = urls[i].index;
-                      if (typeof retryList[index] === 'number'){
+                      if (typeof retryList[index] == 'number'){
                           console.log('重试',index);
                       }
+
+                      //todo
+                      //疑问点:catch还没捕获错误的时候，已经error
+                      //导致重发成功后状态不改变
+
                       request({
                         url:'/upload',
                         data:form,
                         onProgress:this.createProgressHandler(this.chunks[index]),
                         requestList:this.requestList
                       }).then(()=>{
-                          urls[i].status = STATUS.done;
+                          urls[i].status = Status.done;
+
                           max++;
+
                           counter++;
+
                           urls[counter].done = true;
+
                           if (counter === len){
                             resolve();
                           }else{
@@ -199,7 +225,17 @@
                           }
                       }).catch(()=>{
                         //初始值
-                        urls[i].status = STATUS.error;
+                        console.log(i.urls);
+
+                        const j = urls.filter(v=>v.status == Status.done);//等待或者error
+
+                        if (j.length === urls.length){
+                          resolve();
+                          return;
+                        }
+
+
+                        urls[i].status = Status.error;
                         if (typeof retryList[index] !== 'number'){
                           retryList[index] = 0;
                         }
@@ -211,6 +247,7 @@
                         if (retryList[index] >= 2){
                           return reject()
                         }
+
                         console.log(index, retryList[index],'次报错')
                         // 3次报错以内的 重启
                         this.chunks[index].progress = -1; //报错的进度
@@ -230,6 +267,11 @@
                 filename:this.container.file.name,
                 size:SIZE,
                 fileHash: this.container.hash
+              }).then((result)=>{
+                if (result.filePath){
+                  this.fileAddress = result.filePath;
+                  this.fileName = result.fileName
+                }
               });
         },
 
@@ -239,18 +281,20 @@
 
           //获取所有的文件碎片列表
           const list = this.chunks
-            .filter(chunk=>chunk=>uploadedList.indexOf(chunk.hash)  === -1)
+            .filter(chunk=>uploadedList.indexOf(chunk.hash)  == -1)
             .map(({chunk,hash,index},i)=>{
               const form = new FormData();
               form.append("chunk", chunk);
+
               form.append("hash", hash);
               form.append("filename", this.container.file.name);
               form.append("fileHash", this.container.hash);
-              return {form,index,status:STATUS.wait}
+              return {form,index,status:Status.wait}
             });
 
             try{
-              const ret = await this.sendRequest(list,4);　//等待所有的碎片上传完毕
+              console.log(list,uploadedList);
+              if(list&&list.length>0)await this.sendRequest(list,4);　//等待所有的碎片上传完毕
               if (uploadedList.length + list.length === this.chunks.length){
                 await this.mergeRequest();
               }
@@ -270,6 +314,7 @@
         //通过requestIdleCallback
         async calculateHashIdle(chunks){
           return new Promise((resolve, reject) => {
+            console.log('timer----reject');
             const spark = new sparkMd5.ArrayBuffer();
             let count = 0;
             const appendToSpark = async file=>{
@@ -294,6 +339,7 @@
                   this.hashProgress = Number(
                     ((100 * count) / chunks.length).toFixed(2)
                   );
+                  console.log('count',count, chunks.length,this.hashProgress);
                   // console.log(this.hashProgress)
                 } else {
                   // 计算完毕
@@ -354,14 +400,70 @@
 
 
         //文件上传－结合tcp慢启动的文件上传
+        format(num){
+          if(num>1024*1024*1024){
+            return (num/(1024*1024*1024)).toFixed(2)+'GB'
+          }
+          if(num>1024*1024){
+            return (num/(1024*1024)).toFixed(2)+'MB'
+          }
+          if(num>1024){
+            return (num/(1024)).toFixed(2)+'KB'
+          }
+          return num+'B'
+        },
+
+
         async uploadSlow(){
+          //动态计算网速比率,确认每一个碎片的大小
+          const file = this.container.file
+          if (!file) return;
+          this.status = Status.uploading;
+          const fileSize = file.size;
+          let offset = 1024*1024;
+          let cur = 0;
+          let count =0;
+          this.container.hash = await this.calculateHashSample();
+          //动态切割，每切一次发送一个请求，根据请求的情况调整下一次的大小
+          while (cur > fileSize){
+            const chunk = file.slice(cur,cur+offset);
+            cur += offset;
+            const chunkName = this.container.hash;
+              //封装请求体
+            const form = new FormData();
+            form.append("chunk", chunk);
+            form.append("hash", chunkName);
+            form.append("filename", file.name);
+            form.append("fileHash", this.container.hash);
+            form.append("size", chunk.size);
+
+            let start = new Date().getTime();
+            await request({ url: '/upload',data: form })
+            const now = new Date().getTime();
+
+            //根据时间比较传输效率
+            const time = ((now -start)/1000).toFixed(4)
+            let rate = time/30;
+
+            //匹配速率，比如定义标准，每个碎片要３０秒之内传完
+            //根据时间等比调整碎片大小
+            if(rate<0.5) rate=0.5;
+            if(rate>2) rate=2;
+
+            // 新的切片大小等比变化
+            console.log(`切片${count}大小是${this.format(offset)},耗时${time}秒，是30秒的${rate}倍，修正大小为${this.format(offset/rate)}`)
+            offset = parseInt(offset/rate);
+            // if(time)
+            count++
+          }
+
 
         },
 
         //文件上传－切片比较进行上传
         async handleUpload() {
             if (!this.container.file) return;
-            this.status = STATUS.uploading;
+            this.status = Status.uploading;
 
             //切片文件
             const chunks = this.createFileChunk(this.container.file);
@@ -396,9 +498,10 @@
               const chunkName = this.container.hash +"-"+ index;
               return {
                 fileHash:this.container.hash,
-                chunk:this.file,
+                chunk:chunk.file,
                 index,
-                progress:uploadedList.index(chunkName)>-1?100:0,
+                hash:chunkName,
+                progress:uploadedList.indexOf(chunkName)>-1?100:0,
                 size:chunk.file.size
               }
             });
@@ -406,6 +509,7 @@
             //传入已经上传过的切片清单
             await this.uploadChunks(uploadedList);
         }
+
       }
     }
 </script>
