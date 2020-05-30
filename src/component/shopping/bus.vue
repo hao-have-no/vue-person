@@ -10,18 +10,23 @@
           <td>数量</td>
           <td>价格</td>
         </tr>
-        <tr v-for="(item,index) in currentItem" :key="item.id">
-          <td><input type="checkbox" v-model="item.isActive"></td>
-          <td>{{item.name}}</td>
-          <td>{{item.price}}</td>
-          <td><button @click="minus(index)">-</button>{{item.number}}<button @click="add(index)">+</button></td>
-          <td>{{item.price*item.number}}</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td colspan="2">{{isActiveCourse}}/{{allCourseList}}</td>
-          <td colspan="2">{{allPrice}}</td>
-        </tr>
+        <slot v-if="currentItem.length === 0">
+          没有任何课程信息
+        </slot>
+        <slot v-else>
+          <tr v-for="(item,index) in currentItem" :key="item.id">
+            <td><input type="checkbox" v-model="item.isActive"></td>
+            <td>{{item.name}}</td>
+            <td>{{item.price}}</td>
+            <td><button @click="minus(index)">-</button>{{item.number}}<button @click="add(index)">+</button></td>
+            <td>{{item.price*item.number}}</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td colspan="2">{{isActiveCourse}}/{{allCourseList}}</td>
+            <td colspan="2">{{allPrice}}</td>
+          </tr>
+        </slot>
       </table>
     </div>
   </div>
@@ -70,7 +75,28 @@
              });
            return num;
          }
-       }
+       },
+      filters:{
+          //全局的话就在vue.prototype上声明
+        //默认带入的是ｖａｌｕｅ，使用时声明就行，不需要传参，有个有更多个参数，
+        //按照从第二位开始，进行传参
+        //currentItem(unit,number) ---->  currentItem(value,unit,number){}
+        currency(value){
+          return value+'－－v'
+        }
+        //自定义指令－－＞主要用来操作dom
+        //Vue.directive('focus',{
+        //inserted是自定义指令指定的过程名称
+        // inserted(el){el.focus}})
+        //使用 v-focus
+
+      },
+      // watch: {
+      //
+      //   // currentItem(newValue, oldValue) {
+      //   //   this.isActiveCourse =  this.currentItem.filter(item=>item.isActive).length;
+      //   // }
+      // },
     }
 </script>
 

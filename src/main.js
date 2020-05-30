@@ -38,6 +38,7 @@ Vue.prototype.$create=create;
 axios.defaults.timeout=300000;
 Vue.prototype.$http= axios;
 Vue.prototype.$store=store;
+Vue.prototype.$bus = new Vue();
 
 // router.beforeEach((to,from,next)=>{
 //   console.log('berore each',to,from)

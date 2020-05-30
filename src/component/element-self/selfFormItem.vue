@@ -4,6 +4,7 @@
       <div>
         <slot></slot>
         <p v-if="">{{errorMessage}}</p>
+        <p>{{this.kForm.rules[prop]}}</p>
       </div>
     </div>
 </template>
@@ -41,8 +42,16 @@
                      this.errStatus='';
               }
             })
-         }
-        }
+         },
+          show(){
+           console.log(this.prop);
+            console.log(this.kForm.modal);
+            console.log(this.kForm.rules)
+          }
+        },
+      created() {
+        this.show();
+      }
     }
 </script>
 

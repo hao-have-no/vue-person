@@ -31,8 +31,8 @@ export default [
   // },
   {
     path: '/shopping',
-    // component: resolve => require(['./shopping/view'],resolve),
-    component: resolve => require(['./carts/Cart'],resolve),
+    component: resolve => require(['./shopping/view'],resolve),
+    // component: resolve => require(['./carts/Cart'],resolve),
     meta:{
       //增加权限标识
       auth:true

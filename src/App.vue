@@ -12,6 +12,17 @@
         <router-view v-if="isRouterAlive" />
         <router-view name="child" v-if="isRouterAlive"></router-view>
       <!--</transition>-->
+
+      <!--路由缓存
+        <keep-alive>
+        //<keep-alive include='admin,login'　max='10'>
+        //可以变成表达式和数组的形式，方便管理
+        //ｍａｘ标识最多的缓存书，多的话就会把最早的顶掉
+        //判断哪些组件可以缓存
+        //admin:组件的name
+          router-view
+        </keep-alive>
+      -->
     </div>
   </div>
 </template>
@@ -26,16 +37,6 @@ export default {
       isRouterAlive: true,
       activeRouter: "",
       NavRouter: [
-        // {
-        //   id:'1',
-        //   name:'测试－跳转',
-        //   url:'/modArrOne',
-        // },
-        //   {
-        //   id:'2',
-        //   name:'仿抖音桌面',
-        //   url:'/picture'
-        // },
         {
           id: '1',
           name: '主页',
@@ -48,7 +49,7 @@ export default {
         },
         {
           id: '4',
-          name: '开课吧购物车',
+          name: '购物车',
           url: '/shopping'
         },
         {
