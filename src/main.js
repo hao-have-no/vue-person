@@ -12,8 +12,11 @@ import element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import CreateAPI from 'vue-create-api';
 import CartAnim from './component/cart-anim/CartAnim';
-import create from './utils/utils'
+// import create from './utils/utils' //小球
 
+//创建组件实例
+import craete from './utils/create'
+import Notice from './component/Notice'
 
 Vue.config.productionTip = false;
 
@@ -33,7 +36,12 @@ Vue.use(element);
 // Vue.createAPI(CartAnim,['ontransitionend']);
 
 //使用自定义的create-api
-Vue.prototype.$create=create;
+// Vue.prototype.$create=create;
+
+//创建弹窗组件
+Vue.prototype.$notice=function(props){
+      return create(Notice,props);
+}
 
 axios.defaults.timeout=300000;
 Vue.prototype.$http= axios;
