@@ -1,5 +1,6 @@
 import Vue from "vue";
-import Vuex from "vuex";
+import Vuex from "../kvues/kstore";
+// import Vuex from "vuex"
 import {getLanguage} from "../lang/index";
 import { mapActions } from 'vuex';
 import user from './users'
@@ -9,20 +10,24 @@ import cart from './carts'
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  modules:{
-    user,
-    goods,
-    cart
-  },
+  // modules:{
+  //   user,
+  //   goods,
+  //   cart
+  // },
   // namespace:true,
   state:{
+    counts:0,
     // 相关变量
     // language:getLanguage,
     // login:false
     // count: 5,
     // isLogin:!!localStorage.getItem('token')
   },
-  // mutations:{
+  mutations:{
+    add:(state)=>{
+      state.counts++;
+    }
   //   //操作方法（具体的外部请求处理方法）
   //   // SET_LANGUAGE:(state,language)=>{
   //   //   state.language=language;
@@ -40,8 +45,15 @@ export default new Vuex.Store({
   //   setLoginState(state,b){
   //     state.isLogin = b;
   //   },
-  // },
-  // actions:{
+  },
+  actions:{
+    //异步操作，可以解构
+    add({commit}){
+      setTimeout(()=>{
+        commit('add');
+      },1000
+      );
+    }
   //   increment:({commit})=>{
   //     commit('increment');
   //   },
@@ -92,10 +104,12 @@ export default new Vuex.Store({
   //   //   }
   //   //   commit('changeLogin',{loginMark})
   //   // }
-  // },
+  },
   // //计算属性
-  // // getters:{
-  // //   count:
-  // // }
+  getters:{
+    debountce:state=>{
+      return state.counts*2
+    }
+  }
 
 });

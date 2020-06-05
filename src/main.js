@@ -5,7 +5,9 @@ import VueI18n from 'vue-i18n'
 import store from "./store/index"
 import i18n from "./lang/index"
 import App from './App'
-import router from './router'
+import router from './router' //官方router
+// import router from './krouter/kvue-router'
+
 import "./assets/iconfont.css"
 import axios from "./axios/http"
 import element from 'element-ui'
@@ -40,7 +42,7 @@ Vue.use(element);
 
 //创建弹窗组件
 Vue.prototype.$notice=function(props){
-      return create(Notice,props);
+      return craete(Notice,props);
 }
 
 axios.defaults.timeout=300000;

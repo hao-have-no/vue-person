@@ -9,8 +9,8 @@
 </template>
 
 <script>
-  import Child1 from '@/components/communication/Child1.vue'
-  import Child2 from '@/components/communication/Child2.vue'
+  import Child1 from '@/mixins/communication/Child1.vue'
+  import Child2 from '@/mixins/communication/Child2.vue'
   
   export default {
     name: 'grandpa',

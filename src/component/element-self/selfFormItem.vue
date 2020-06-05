@@ -14,6 +14,7 @@
 
     export default {
         name: "self-form-item",
+        componentName:"self-form-item",
         inject:['kForm'],
         props:["label","prop"], //确定要显示的标签，props校验的属性
         //因为具有校验功能，该组件拥有自己的状态，所以data

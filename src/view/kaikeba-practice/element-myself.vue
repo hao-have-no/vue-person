@@ -28,11 +28,11 @@
             <!--input组件常用的属性直接抽离出来，作为参数传入-->
             <myself-input v-model="model.password" type="password"></myself-input>
           </myself-form-item>
-          <KFormItem>
-            <button @click="submitForm">登录</button>
-          </KFormItem>
+          <myself-form-item >
+            <button @click="login">登录</button>
+          </myself-form-item >
       </myself-form>
-      {{model.username}}
+      {{model}}
 
       <!--<button @click="submitForm">登录</button>-->
     </div>
@@ -66,7 +66,7 @@
           }
         },
       methods:{
-          submitForm:function () {
+          login:function () {
             this.$refs.form.validate(valid=>{
             //   if (valid){
             //     console.log("请先登录");
@@ -84,7 +84,7 @@
                   title:'校验结果',
                   message:valid?'请求登录':'校验失败',
                   duration:1000
-                })
+                }).show();
             })
           },
 

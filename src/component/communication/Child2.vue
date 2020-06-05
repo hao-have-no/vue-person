@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import Grandson from "@/components/communication/Grandson.vue";
+import Grandson from "@/mixins/communication/Grandson.vue";
 
 export default {
   components: {

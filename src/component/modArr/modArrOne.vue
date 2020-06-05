@@ -3,16 +3,23 @@
     this is modArrOne
     <button @click="loadOtherRouter">跳转</button>
     <button @click="loadquest">发送请求</button>
+    <div>{{$store.state.counts}}</div>
+    <!--<div>{{$store.getters.debountce}}</div>-->
+    <p @click="$store.commit('add')">commit增加</p>
+    <p @click="$store.dispatch('add')">dispatch增加</p>
+    <!--$store是怎么来的?-->
   </div>
 </template>
 
 <script>
-  import api from '../../axios/api'
+  import api from '../../axios/api';
+  // import store from '../../store/index'
     export default {
         name: "modArrOne",
 
       methods:{
           loadOtherRouter:function () {
+            //携带参数，params(刷新页面参数丢失)和query（刷新页面参数不丢失）
             this.$router.push({path:"/modArrOne/detail"})
           },
         loadquest:function () {

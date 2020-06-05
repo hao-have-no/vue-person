@@ -5,6 +5,18 @@
         <!--<template v-slot:title>恭喜</template>-->
         <!--<template>新增课程成功</template>-->
       <!--</message>-->
+      <h1 :title="title">
+        <!--插值文本-->
+        <svg>
+          <use xlink:href="#icon-gouwuche"></use>
+        </svg>
+        {{title}}
+      </h1>
+
+      <!--<heading :level="'2'">{{title}}</heading>
+        绑定:1.绑定的都是对象 2.直接传入的话根据设置传入''字符串类型的
+      -->
+      <heading level="2" icon="gouwuche">{{title}}</heading>
 
       <message ref="msg" class="message-success">
       <template v-slot:title>恭喜</template>
@@ -77,6 +89,9 @@
         </table>
       </div>
       <Bus :current-item="bus" @removeItem="remove"></Bus>
+      <div>
+        <NodeTest></NodeTest>
+      </div>
     </div>
 </template>
 
@@ -84,15 +99,19 @@
     import Bus from './bus';
     import CourseAdd from "./course-add";
     import Message from "./message";
+    import Heading from './heading';
+    import NodeTest from "./NodeTest";
+
     export default {
       name: "shopping",
-      components: {Message, CourseAdd, Bus},
+      components: {NodeTest, Message, CourseAdd, Bus, Heading},
       data() {
         return {
           course:'',
           courses:[],
           show:false,
           showWarn:false,
+          title:'欢迎上课',
           stateLesson:{
             id:'',
             name:'',
@@ -178,7 +197,6 @@
     }
 
 </script>
-
 <style scoped>
   .message-success{
     background: #4fc08d;
