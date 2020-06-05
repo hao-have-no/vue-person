@@ -12,21 +12,19 @@
      function defineReactive(obj,key,val){
          Object.defineProperty(obj,key,{
              get(){
-                 console.log('get',key)
+                 console.log('get',key);
+                 return val;//不返回的话，外部引用不到
              },
              set(newVal){
                 if(newVal !== val){
                     console.log('set',key,newVal)
                     val = newVal;
-                    // update();
+                    update();
                 }
              }
          })
      }
 
-     function update(){
-         app.innerText = obj.foo;
-    }
 
      //形参value--> return val,值变了,再修改val（闭包思想，每个响应式都是独立的，拥有局部作用域并且暴露给外部使用，内部变量可以保存）
      //get函数往外暴露属性
@@ -36,9 +34,12 @@
     const obj = {};
     defineReactive(obj,'foo','111');
 
+    function update(){
+        app.innerText = obj.foo;
+    }
 
     setInterval(()=>{
-        // obj.foo = new Date().toLocaleTimeString();
-    });
+        obj.foo = new Date().toLocaleTimeString();
+    },1000);
 </script>
 </html>
