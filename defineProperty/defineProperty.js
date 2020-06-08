@@ -38,6 +38,9 @@ function observe(obj){
     });
 }
 
+function set(obj,key,val){
+    defineReactive(obj,key,val);
+}
 
 //形参value--> return val,值变了,再修改val（闭包思想，每个响应式都是独立的，拥有局部作用域并且暴露给外部使用，内部变量可以保存）
 //get函数往外暴露属性
@@ -53,4 +56,9 @@ observe(obj);
 // obj.baz.a = '222';
 
 //输出不出来，全新的对象没有做过递归，不具有响应
-obj.a='';
+// obj.a='';
+
+
+//$set
+// set(obj,'dong','dong');
+// obj.dong;

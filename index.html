@@ -5,8 +5,27 @@
     <title>Title</title>
 </head>
 <body>
-    <div>
-        sdf
+    <div id="body">
+        <p>{{counter}}</p>
+        <p k-text="counter"></p>
     </div>
+<script src="kvue.js"></script>
+<script>
+    const app= new KVue({
+        el:'#app',
+        data:{
+            counter:1
+        }
+    });
+
+    //kvue的实例为什么能直接访问counter属性
+    //proxy代理
+    setInterval(()=>{
+        //this.$data/counter++
+        // app.counter++
+    },1000);
+
+
+</script>
 </body>
 </html>
