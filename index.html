@@ -5,25 +5,34 @@
     <title>Title</title>
 </head>
 <body>
-    <div id="body">
+    <div id="app">
         <p>{{counter}}</p>
         <p k-text="counter"></p>
+        <p k-html="desc"></p>
+        <p k-model="counter"></p>
+        <button @click="add">增加</button>
     </div>
 <script src="kvue.js"></script>
 <script>
     const app= new KVue({
         el:'#app',
         data:{
-            counter:1
+            counter:1,
+            desc:'<span style="color:red">kvue可还行</span>'
+        },
+        methods:{
+            add(){
+                this.counter++;
+            }
         }
     });
 
     //kvue的实例为什么能直接访问counter属性
     //proxy代理
-    setInterval(()=>{
-        //this.$data/counter++
-        // app.counter++
-    },1000);
+    // setTimeout(()=>{
+    //     //this.$data/counter++
+    //     app.counter++
+    // },1000);
 
 
 </script>
