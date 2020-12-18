@@ -14,7 +14,7 @@ export default function create(Component,props) {
 //
 //   //方案一： 通过Vue.extend(Component)获取组件的构造函数
 //
-  const Ctor = Vue.extend(Component);
+  const Ctor = Vue.extend(Component); //获取组件的构造函数
   const comp = new Ctor({propsData:props}); //创建组件实例
 
   comp.$mount();
