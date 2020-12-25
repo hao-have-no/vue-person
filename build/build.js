@@ -12,7 +12,8 @@ const webpack = require('webpack')
 const config = require('../config')
 const webpackConfig = require('./webpack.prod.conf')
 // 实例化ora loading的插件
-const spinner = ora('building for production...')
+// const spinner = ora('building for production...')
+const spinner = ora('building for ' + process.env.NODE_ENV + ' of ' + process.env.env_config+ ' mode...' )//添加这行
 spinner.start()
 
 //删除这个文件夹（递归删除）

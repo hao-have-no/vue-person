@@ -120,6 +120,9 @@ export default {
   //     cartTotal: 'cartTotal' //购物车
   //   })
   // }
+  mounted(){
+    console.log(process.env)
+  }
 }
 </script>
 

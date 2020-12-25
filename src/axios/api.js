@@ -1,4 +1,4 @@
-const host="http://192.168.1.13:12138";
+const host=process.env.API_ROOT;
 const path=host+"/record";
 
 export default{

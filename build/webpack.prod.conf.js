@@ -15,9 +15,11 @@ const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 // 压缩代码
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 //判断环境，选择应用方案
-const env = process.env.NODE_ENV === 'testing'
-  ? require('../config/test.env')
-  : require('../config/prod.env')
+// const env = process.env.NODE_ENV === 'testing'
+//   ? require('../config/test.env')
+//   : require('../config/prod.env')
+
+const env = config.build[process.env.env_config+'Env']
 
 const webpackConfig = merge(baseWebpackConfig, {
   module: {

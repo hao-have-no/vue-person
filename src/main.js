@@ -24,6 +24,10 @@ Vue.config.productionTip = false;
 
 //给vue注册实例方法,使用$createCardAnim来创建
 
+
+//动态导入
+// axios.defaults.baseURL = process.env.API_ROOT;
+
 Vue.use(VueI18n,{
   i18n:(key,value)=> i18n.t(key,value)
 });
