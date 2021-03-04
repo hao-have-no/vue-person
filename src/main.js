@@ -21,8 +21,9 @@ import craete from './utils/create'
 import Notice from './component/Notice'
 
 //引用第三方组件
-// import modal from 'fh-modal';
-import modal from 'qf-modal';
+import modal from 'fh-modal';
+import 'fh-modal/ui-modal.css';
+// import modal from 'qf-modal';
 Vue.use(modal);
 
 Vue.config.productionTip = false;
