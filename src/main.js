@@ -20,6 +20,11 @@ import CartAnim from './component/cart-anim/CartAnim';
 import craete from './utils/create'
 import Notice from './component/Notice'
 
+//引用第三方组件
+// import modal from 'fh-modal';
+import modal from 'qf-modal';
+Vue.use(modal);
+
 Vue.config.productionTip = false;
 
 //给vue注册实例方法,使用$createCardAnim来创建

@@ -8,19 +8,27 @@
     <p @click="$store.commit('add')">commit增加</p>
     <p @click="$store.dispatch('add')">dispatch增加</p>
     <!--$store是怎么来的?-->
+
+    <modal :visible="show"></modal>
   </div>
 </template>
 
 <script>
   import api from '../../axios/api';
+  // import modal from 'fh-modal'
   // import store from '../../store/index'
     export default {
         name: "modArrOne",
-
+      data(){
+        return{
+          show:false
+        }
+      },
       methods:{
           loadOtherRouter:function () {
             //携带参数，params(刷新页面参数丢失)和query（刷新页面参数不丢失）
-            this.$router.push({path:"/modArrOne/detail"})
+            // this.$router.push({path:"/modArrOne/detail"})
+            this.show = true;
           },
         loadquest:function () {
             var params={
