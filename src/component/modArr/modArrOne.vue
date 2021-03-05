@@ -9,7 +9,7 @@
     <p @click="$store.dispatch('add')">dispatch增加</p>
     <!--$store是怎么来的?-->
 
-    <modal :visible="show"></modal>
+    <modal :visible="show" @on-hidden="initParam"></modal>
   </div>
 </template>
 
@@ -30,6 +30,9 @@
             // this.$router.push({path:"/modArrOne/detail"})
             this.show = true;
           },
+        initParam:function(){
+           this.show = false;
+        },
         loadquest:function () {
             var params={
               'item':1,
