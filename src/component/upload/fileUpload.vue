@@ -322,6 +322,7 @@
                 const reader = new FileReader();
                 reader.readAsArrayBuffer(file);
                 reader.onload =e=>{
+                  // append array buffer
                   spark.append(e.target.result);
                   resolve();
                 };
@@ -356,6 +357,7 @@
         //抽样计算hash
         async calculateHashSample(){
             return new Promise((resolve, reject) => {
+              // 无需上传文件就快速获取本地文件md5
               const spark = new sparkMd5.ArrayBuffer();
               const reader = new FileReader();
               const file = this.container.file;
@@ -368,6 +370,8 @@
               let chunks = [file.slice(0,offset)];
 
               let cur = offset;
+
+              //抽样hash-中间部分只取文件片段的头尾部
               while(cur < size){
                   if (cur+offset > size){
                     chunks.push(file.slice(cur,cur+offset))
@@ -382,8 +386,10 @@
                   cur +=offset;
               }
 
+              //启动读取指定的 Blob 或 File 内容，读取完毕触发onload方法
               reader.readAsArrayBuffer(new Blob(chunks));
               reader.onload = e =>{
+                //将读取的文件结果生成md5标识
                 spark.append(e.target.result);
 
                 resolve(spark.end());
@@ -423,11 +429,14 @@
           let offset = 1024*1024;
           let cur = 0;
           let count =0;
-          this.container.hash = await this.calculateHashSample();
+          this.container.hash = await this.calculateHashSample(); //生成文件的唯一标识
+
           //动态切割，每切一次发送一个请求，根据请求的情况调整下一次的大小
           while (cur > fileSize){
+            //文件片段
             const chunk = file.slice(cur,cur+offset);
             cur += offset;
+            //文件md5唯一标识
             const chunkName = this.container.hash;
               //封装请求体
             const form = new FormData();
@@ -436,8 +445,9 @@
             form.append("filename", file.name);
             form.append("fileHash", this.container.hash);
             form.append("size", chunk.size);
-
+            //时间戳
             let start = new Date().getTime();
+            //发送请求
             await request({ url: '/upload',data: form })
             const now = new Date().getTime();
 
@@ -483,7 +493,7 @@
 
             console.timeEnd("samplehash");
 
-            //判断文件是否存在，如果不存在，获取已经上传的切片
+            //判断文件是否存在，如果不存在，获取已经上传的切片和上传状态
             const {uploaded,uploadedList} = await this.verify(
               this.container.file.name,
               this.container.hash
@@ -501,6 +511,7 @@
                 chunk:chunk.file,
                 index,
                 hash:chunkName,
+                //当前这个文件碎片是否上传
                 progress:uploadedList.indexOf(chunkName)>-1?100:0,
                 size:chunk.file.size
               }

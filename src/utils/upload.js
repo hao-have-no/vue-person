@@ -11,6 +11,7 @@ export function request({
   return new Promise((resolve,reject)=>{
     const xhr = new XMLHttpRequest();
     xhr.upload.onprogress = onProgress;
+    //进行接口http的链接
     xhr.open(method,baseUrl+url);
     Object.keys(headers).forEach(key=>{
       xhr.setRequestHeader(key,headers[key])
@@ -33,9 +34,12 @@ export function request({
       }
     };
 
+    //记录发送的请求
     requestList&&requestList.push(xhr);
 
     console.log('data',data);
+
+    //发送请求
     xhr.send(data);
   });
 }
