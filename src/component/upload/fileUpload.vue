@@ -294,6 +294,8 @@
 
             try{
               console.log(list,uploadedList);
+              //list是一个包含form实例，当前顺序,文件碎片状态为等待的对象的集合
+              // 上传碎片－－控制并发操作
               if(list&&list.length>0)await this.sendRequest(list,4);　//等待所有的碎片上传完毕
               if (uploadedList.length + list.length === this.chunks.length){
                 await this.mergeRequest();
