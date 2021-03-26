@@ -1,6 +1,6 @@
 import Vue from "vue";
-import Vuex from "../kvues/kstore";
-// import Vuex from "vuex"
+// import Vuex from "../kvues/kstore";
+import Vuex from "vuex"
 import {getLanguage} from "../lang/index";
 import { mapActions } from 'vuex';
 import user from './users'

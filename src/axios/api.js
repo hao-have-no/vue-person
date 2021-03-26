@@ -26,5 +26,10 @@ export default{
   //获取轮播图和列表信息
   getGoods(){
     return path+'/slider'
+  },
+
+  //获取文章列表
+  getArticle(){
+    return path+'/article'
   }
 }

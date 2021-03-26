@@ -27,8 +27,8 @@
       methods:{
           loadOtherRouter:function () {
             //携带参数，params(刷新页面参数丢失)和query（刷新页面参数不丢失）
-            // this.$router.push({path:"/modArrOne/detail"})
-            this.show = true;
+            this.$router.push({path:"/modArrOne/detail"})
+            // this.show = true;
           },
         initParam:function(){
            this.show = false;

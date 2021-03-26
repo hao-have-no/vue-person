@@ -1,6 +1,6 @@
 import Vue from 'vue'
-// import Router from 'vue-router'
-import Router from '../krouter/kvue-router'
+import Router from 'vue-router'
+// import Router from '../krouter/kvue-router'
 import store from '../store/index'
 import home from '../component/home';
 import vue from '../main';
@@ -16,7 +16,7 @@ const router = new Router({
   // mode:"history",
   // base:process.env.BASE_URL,
   //
-  routers:[
+  routes:[
     {
       path: '/element-myself',
       name:'element-myself',
@@ -26,6 +26,10 @@ const router = new Router({
       path:'/',
       component:resolve => require(['../component/modArr/modArrOne'],resolve),
       name:'index'
+    },
+    {
+      path: '/modListOne',
+      component: resolve => require(['../component/modList/modListOne'], resolve)
     }
   ]
 
@@ -34,7 +38,7 @@ const router = new Router({
   // routes: [
   //   ...home,
   //   ...practice
-  //   // ...modArr,
+    // ...modArr,
   //   // ...modList,
   // ]
 });
