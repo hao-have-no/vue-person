@@ -29,11 +29,10 @@
             <myself-input v-model="model.password" type="password"></myself-input>
           </myself-form-item>
           <myself-form-item >
-            <button @click="login">登录</button>
           </myself-form-item >
       </myself-form>
-      {{model}}
-
+      <!--{{model}}-->
+      <button @click="ssss">登录</button>
       <!--<button @click="submitForm">登录</button>-->
     </div>
 </template>
@@ -66,23 +65,24 @@
           }
         },
       methods:{
-          login:function () {
+          ssss:function () {
+            // console.log(this.$refs.form)
             this.$refs.form.validate(valid=>{
-            //   if (valid){
-            //     console.log("请先登录");
-            //   } else{
-            //     console.log("校验失败");
-            //   }
-            //   create(Notice,{
-            //     title:'校验结果',
-            //     message:valid?'请求登录':'校验失败',
-            //     duration:1000
-            //   }).show(); //创建组件实例并显示
+              if (valid){
+                console.log("请先登录");
+              } else{
+                console.log("校验失败");
+              }
+              // create(Notice,{
+              //   title:'校验结果',
+              //   message:valid?'请求登录':'校验失败',
+              //   duration:1000
+              // }).show(); //创建组件实例并显示
 
-            //进阶，将创建实例化的放入main.js
+            // 进阶，将创建实例化的放入main.js
                 this.$notice({
                   title:'校验结果',
-                  message:valid?'请求登录':'校验失败',
+                  message:'请求登录',
                   duration:1000
                 }).show();
             })

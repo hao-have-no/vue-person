@@ -12,8 +12,8 @@ import "./assets/iconfont.css"
 import axios from "./axios/http"
 import element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-import CreateAPI from 'vue-create-api';
-import CartAnim from './component/cart-anim/CartAnim';
+// import CreateAPI from 'vue-create-api';
+// import CartAnim from './component/cart-anim/CartAnim';
 // import create from './utils/utils' //小球
 
 //创建组件实例
@@ -21,10 +21,10 @@ import craete from './utils/create'
 import Notice from './component/Notice'
 
 //引用第三方组件
-import modal from 'fh-modal';
-import 'fh-modal/ui-modal.css';
+// import modal from 'fh-modal';
+// import 'fh-modal/ui-modal.css';
 // import modal from 'qf-modal';
-Vue.use(modal);
+// Vue.use(modal);
 
 Vue.config.productionTip = false;
 
@@ -32,7 +32,7 @@ Vue.config.productionTip = false;
 
 
 //动态导入
-// axios.defaults.baseURL = process.env.API_ROOT;
+axios.defaults.baseURL = process.env.API_ROOT;
 
 Vue.use(VueI18n,{
   i18n:(key,value)=> i18n.t(key,value)
@@ -48,7 +48,7 @@ Vue.use(element);
 // Vue.createAPI(CartAnim,['ontransitionend']);
 
 //使用自定义的create-api
-// Vue.prototype.$create=create;
+Vue.prototype.$create=craete;
 
 //创建弹窗组件
 Vue.prototype.$notice=function(props){
@@ -60,17 +60,17 @@ Vue.prototype.$http= axios;
 Vue.prototype.$store=store;
 Vue.prototype.$bus = new Vue();
 
-// router.beforeEach((to,from,next)=>{
-//   console.log('berore each',to,from)
-//   next();
-// });
-// router.beforeResolve((to,from,next)=>{
-//   console.log('berore resolve',to,from);
-//   next();
-// });
-// router.afterEach((to,from,next)=>{
-//   console.log('after each')
-// })
+router.beforeEach((to,from,next)=>{
+  console.log('berore each',to,from)
+  next();
+});
+router.beforeResolve((to,from,next)=>{
+  console.log('berore resolve',to,from);
+  next();
+});
+router.afterEach((to,from,next)=>{
+  console.log('after each')
+})
 
 //增加全局路由守卫
 // beforeEach(经常用，一般用于权限鉴定),beforeResolve（比前置钩子晚一些）,afterEach（）

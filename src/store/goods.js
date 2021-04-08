@@ -11,6 +11,7 @@ export default {
     getGood({state,commit}){
       if (!state.keys.length){
           gs.getGoodsInfo().then(goodsInfo=>{
+            console.log('setGoodsInfo',goodsInfo);
             commit('setGoodsInfo',goodsInfo);
           })
       }
