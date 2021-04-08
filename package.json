@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "async-validator": "^2.0.1",
-    "axios": "^0.16.2",
+    "axios": "^0.21.1",
     "core-js": "^2.6.5",
     "element-ui": "^2.7.2",
     "fh-modal": "^1.0.1",
