@@ -15,13 +15,27 @@
             </el-form-item>
           </el-form>
         </div>
+        <div>
+          <h3>异步组件/keep-alive</h3>
+          <el-button v-for="tab in tabsEnum" :key="tab" @click="currentTab = tab" :class="['tab-button',{active:currentTab === tab}]">{{tab}}</el-button>
+          <keep-alive>
+              <component :is="currentComponent"></component>
+          </keep-alive>
+        </div>
+      <div>
+        <h3>nextTicks</h3>
+        <span ref="articles" @click="getAllTabs()">{{testMsg}}</span>
+      </div>
     </div>
 </template>
 
 <script>
+    import KeepTitle from "./keep-alive/keep-title";
+    import KeepContent from "./keep-alive/keep-content";
     export default {
         name: "element-practice",
-        data(){
+      components: {KeepTitle,KeepContent},
+      data(){
           return {
             model:{
               username:"",
@@ -30,7 +44,10 @@
             rules:{
               username:[{required:true,message:"请输入用户名"}],
               password:[{required:true,message:"请输入密码"}]
-            }
+            },
+            currentTab:'Title',
+            tabsEnum:['Title','Content'],
+            testMsg:"init"
           }
         },
       methods:{
@@ -42,11 +59,41 @@
                 console.log("校验失败");
               }
             })
+          },
+          getAllTabs:function(){
+            let that=this;
+            that.testMsg="修改后的值";
+            console.log(this.$refs.articles.innerText);
           }
-      }
+      },
+      computed:{
+          currentComponent(){
+            return `keep-${this.currentTab.toLowerCase()}`
+          }
+      },
     }
 </script>
 
 <style scoped>
-
+  .tab-button {
+    padding: 6px 10px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    background: #f0f0f0;
+    margin-bottom: -1px;
+    margin-right: -1px;
+  }
+  .tab-button:hover {
+    background: #e0e0e0;
+  }
+  .tab-button.active {
+    background: #e0e0e0;
+  }
+  .active{
+    color:#039be5;
+    font-size: 18px;
+    font-weight: bold;
+  }
 </style>

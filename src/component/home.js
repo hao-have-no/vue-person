@@ -1,7 +1,11 @@
 
 export default [
   {
-    path: '/',
+      path:'/',
+      redirect:'/list'
+  },
+  {
+    path: '/list',
     component:resolve => require(['./hello'],resolve),
     name:'index'
   },
