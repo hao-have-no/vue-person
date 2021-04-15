@@ -1,43 +1,41 @@
 <template>
   <div class="nav-content" v-if="navRouter&&navRouter.length">
-    <!--<el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">-->
-      <!--<el-radio-button :label="false">展开</el-radio-button>-->
-      <!--<el-radio-button :label="true">收起</el-radio-button>-->
-    <!--</el-radio-group>-->
-    <el-menu class="el-menu-vertical-demo" :default-active="activeRouter" @open="handleOpen" @close="handleClose"
+    <el-menu class="el-menu-vertical-demo" :default-active="activeRouter"
              :unique-opened="true"
              :collapse="isCollapse"
              background-color="#545c64"
              text-color="#fff"
-             active-text-color="#ffd04b">
-      <div v-for="menu in navRouter" :key="menu.id">
-        <el-submenu v-if="menu.children&&menu.children.length" :index="menu.id">
-        <template slot="title">
-          <i :class="menu.icon"></i>
-          <span slot="title">{{menu.name}}</span>
-        </template>
-          <el-menu-item-group v-if="menu.children&&menu.children.length">
-            <div v-for="child in menu.children" :key="child.id">
-              <el-menu-item v-if="!child.children||!child.children.length" :index="child.id" @click="pathRoute(child)">
-                {{child.name}}
-              </el-menu-item>
-              <el-submenu v-if="child.children&&child.children.length" :index="child.id">
-                <span slot="title">{{child.name}}</span>
-                <el-menu-item v-for="submenu in child.children"
-                              :index="submenu.id"
-                              :key="submenu.id"
-                              @click="pathRoute(submenu)"
-                >{{submenu.name}}</el-menu-item>
-              </el-submenu>
-            </div>
-          </el-menu-item-group>
-      </el-submenu>
-        <el-menu-item v-if="!menu.children||!menu.children.length"
-                      @click="pathRoute(menu)"
-                      :index="menu.id">
-          <i :class="menu.icon"></i>
-          <span slot="title">{{menu.name}}</span>
-        </el-menu-item>
+             active-text-color="#ffd04b"
+    >
+        <div v-for="menu in navRouter">
+          <el-submenu v-if="menu.children&&menu.children.length" :index="menu.id" :key="menu.id">
+            <template slot="title">
+              <i :class="menu.icon"></i>
+              <span slot="title">{{menu.name}}</span>
+            </template>
+            <el-menu-item-group v-if="menu.children&&menu.children.length">
+              <div v-for="child in menu.children" :key="child.id">
+                <el-menu-item v-if="!child.children||!child.children.length" :index="child.id" @click="pathRoute(child)">
+                  {{child.name}}
+                </el-menu-item>
+                <el-submenu v-if="child.children&&child.children.length" :index="child.id">
+                  <span slot="title">{{child.name}}</span>
+                  <el-menu-item v-for="submenu in child.children"
+                                :index="submenu.id"
+                                :key="submenu.id"
+                                @click="pathRoute(submenu)"
+                  >{{submenu.name}}</el-menu-item>
+                </el-submenu>
+              </div>
+            </el-menu-item-group>
+          </el-submenu>
+          <el-menu-item v-if="!menu.children||!menu.children.length"
+                        @click="pathRoute(menu)"
+                        :key="menu.id"
+                        :index="menu.id">
+            <i :class="menu.icon"></i>
+            <span slot="title">{{menu.name}}</span>
+          </el-menu-item>
       </div>
     </el-menu>
   </div>
@@ -74,21 +72,22 @@
         let result = null;
 
         const findMark=(route,list)=>{
-          list.filter(item=> {
+          return list.filter(item=> {
                if(item.children){
                   findMark(route,item.children)
               }else{
                  if (onRoute&&onRoute.indexOf(item.url) !== -1){
                    console.log('item',item);
                    result = item;
+                   return item;
                  }
               }
             });
         };
 
-       findMark(onRoute,this.navRouter);
+       const res = findMark(onRoute,this.navRouter);
 
-        console.log('result',result);
+        console.log('result',result,res);
         this.activeRouter = result ? result.id : '1-1';
       }
     },
@@ -116,7 +115,7 @@
           id:'2',
           name:'组件使用',
           url:'',
-          icon:"el-icon-location",
+          icon:"el-icon-menu",
           children:[
             {
               id: '2-1',
@@ -161,6 +160,11 @@
       // }
       ];
       this.findRoute();
+      this.$bus.$on('update-status',(val)=>{
+          this.$nextTick(()=>{
+            this.isCollapse = val;
+          });
+      })
     },
   }
 </script>
@@ -169,5 +173,13 @@
   .nav-content{
     height: calc(100vh - 50px);
     background-color:#545c64;
+  }
+  /*隐藏文字*/
+  .el-menu--collapse  .el-submenu__title span{
+    display: none;
+  }
+  /*隐藏 > */
+  .el-menu--collapse  .el-submenu__title .el-submenu__icon-arrow{
+    display: none;
   }
 </style>

@@ -8,7 +8,7 @@
       <!--</a>-->
     <!--</div>-->
     <div class="infi-header">
-      <div>Header</div>
+      <top-header></top-header>
     </div>
     <div class="infi-content">
       <nav-menu></nav-menu>
@@ -52,9 +52,10 @@
   import {mapGetters} from 'vuex';
   import NavMenu from "./component/pageModule/nav-menu";
   import InfiFooter from "./component/pageModule/infi-footer";
+  import TopHeader from "./component/pageModule/topNav";
 export default {
   name: 'App',
-  components: {InfiFooter, NavMenu},
+  components: {TopHeader, InfiFooter, NavMenu},
   data() {
     return {
       isRouterAlive: true,
