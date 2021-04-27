@@ -18,7 +18,7 @@
           <div>总进度</div>
           <el-progress :percentage="fakeProgress"></el-progress>
         </div>
-        <div class="cube-container" :style="{width:cubeWidth+'px'}">
+        <div class="cube-container" style="width:100%;">
           <div class="cube"
                v-for="chunk in chunks"
                :key="chunk.hash">
@@ -66,7 +66,7 @@
   import sparkMd5 from "spark-md5";
   import {post, request} from "../../utils/upload";
 
-  const SIZE = 0.2 * 1024 * 1024;
+  const SIZE = 0.1 * 1024 * 1024;
   const Status = {
     wait: "wait",
     pause: "pause",

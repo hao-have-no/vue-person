@@ -112,6 +112,19 @@
           ]
         },
         {
+          id:'7',
+          name:'用户管理',
+          icon:"el-icon-location",
+          url:'',
+          children:[
+            {
+              id: '7-1',
+              name: '用户列表',
+              url: '/user-list'
+            },
+          ]
+        },
+        {
           id:'2',
           name:'组件使用',
           url:'',

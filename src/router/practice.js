@@ -17,6 +17,10 @@ export default [
     }
   },
   {
+    path:'/user-list',
+    component:resolve=>require(['../view/home/list'],resolve),
+  },
+  {
     //验证-匿名视图-复合路由
     path:'/recombination',
     name:'recombination',
