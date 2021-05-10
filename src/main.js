@@ -94,4 +94,17 @@ var vue=new Vue({
   render:h=>h(App)
 }).$mount('#app');
 
+// h函数就是createElement函数(官方文档)
+
+//$mount 中会执行 render 得到　vnode 从而挂在根元素上
+
+//vue中的app.vue的app和index.html中的app为什么不会冲突
+// index.html中的app会作为挂在目标从而挂在vue实例
+//根实例的render选项，接收createElement方法作为第一个参数用来创建VNode。而createElement又接收APP组件作为参数。
+//render渲染函数生成的VNode将会替换掉挂载元素，即App.vue组件的模板内容将会替换掉index.html中的挂载元素’#app’。
+// 最终渲染出来的页面中的’#app’元素是App.vue组件中的。
+
+// render渲染函数是字符串模板template的代替方案，是运行时的方案
+// 包含编译器的运行时版，而template一定要通过编译器编译成渲染函数
+
 export default vue
