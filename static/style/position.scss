@@ -1,0 +1,45 @@
+.position-relative {
+  position: relative;
+}
+
+.position-absolute {
+  position: absolute;
+}
+
+.position-fixed {
+  position: fixed;
+}
+
+.translate-center {
+  transform: translate(-50%, -50%);
+}
+.position-baise {
+  position: relative;
+  z-index: 0;
+}
+
+// 居中定位
+.center-center {
+  @extend .position-absolute;
+  top: 50%;
+  left: 50%;
+  @extend .translate-center;
+}
+// 垂直居中
+.vertical-center {
+  @extend .position-absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+// 铺满父级
+.overspread-position {
+  @extend .position-absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+}
+
+.vertical-sub{
+  vertical-align:sub;
+}

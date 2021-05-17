@@ -15,8 +15,7 @@
       <div class="right-content">
         <!--<transition name="route-move">-->
         <div class="basic-content">
-          <router-view v-if="isRouterAlive" />
-          <router-view name="child" v-if="isRouterAlive"></router-view>
+          <router-view/>
         </div>
         <div style="position: relative">
           <infi-footer></infi-footer>

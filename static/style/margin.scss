@@ -1,0 +1,155 @@
+@import "./numeric-symbols";
+
+.margin-none,
+.weight.margin-none {
+  margin: 0;
+}
+
+.margin-bottom-vs,
+.weight.margin-bottom-vs {
+  margin-bottom: $x-vs;
+}
+
+.margin-bottom-xs,
+.weight.margin-bottom-xs {
+  margin-bottom: $x-xs;
+}
+
+.margin-bottom-sm,
+.weight.margin-bottom-sm {
+  margin-bottom: $x-sm;
+}
+
+.margin-bottom-md,
+.weight.margin-bottom-md {
+  margin-bottom: $x-md;
+}
+
+.margin-bottom-lg,
+.weight.margin-bottom-lg {
+  margin-bottom: $x-lg;
+}
+
+.margin-bottom-none {
+  margin-bottom: 0;
+}
+
+.margin-right-vs {
+  margin-right: $x-vs;
+}
+
+.margin-right-xs {
+  margin-right: $x-xs;
+}
+
+.margin-right-sm,
+.weight.margin-right-sm {
+  margin-right: $x-sm;
+}
+
+.margin-right-md,
+.weight.margin-right-md {
+  margin-right: $x-md;
+}
+
+.margin-right-lg {
+  margin-right: $x-lg;
+}
+
+.margin-right-none,
+.weight.margin-right-none {
+  margin-right: 0;
+
+  &.important {
+    margin-right: 0 !important;
+  }
+}
+
+.margin-top-vs {
+  margin-top: $x-vs;
+}
+
+.margin-top-xs {
+  margin-top: $x-xs;
+}
+
+.margin-top-sm {
+  margin-top: $x-sm;
+}
+
+.margin-top-md,
+.weight.margin-top-md {
+  margin-top: $x-md;
+}
+
+.margin-top-none,
+.weight.margin-top-none {
+  margin-top: 0;
+}
+
+.margin-left-vs {
+  margin-left: $x-vs;
+}
+
+.margin-left-xs {
+  margin-left: $x-xs;
+}
+
+.margin-left-sm {
+  margin-left: $x-sm;
+}
+
+.margin-left-md {
+  margin-left: $x-md;
+}.margin-left-lg {
+   margin-left: $x-lg;
+ }
+
+.margin-left-lg {
+  margin-left: $x-lg;
+}
+
+.margin-left-none,
+.weight.margin-left-none {
+  margin-left: 0;
+}
+
+.margin-xs {
+  margin: $x-xs;
+}
+
+.margin-sm {
+  margin: $x-sm;
+}
+
+// 横向 margin
+.margin-transverse-sm {
+  @extend .margin-right-sm;
+  @extend .margin-left-sm;
+}
+
+.margin-transverse-vs {
+  @extend .margin-right-vs;
+  @extend .margin-left-vs;
+}
+
+// 竖向 margin
+.margin-vertical-sm {
+  @extend .margin-top-sm;
+  @extend .margin-bottom-sm;
+}
+
+.margin-vertical-xs {
+  @extend .margin-top-xs;
+  @extend .margin-bottom-xs;
+}
+
+.margin-vertical-vs {
+  @extend .margin-top-vs;
+  @extend .margin-bottom-vs;
+}
+
+.margin-vertical-md {
+  @extend .margin-top-md;
+  @extend .margin-bottom-md;
+}

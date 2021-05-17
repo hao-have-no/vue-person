@@ -1,4 +1,11 @@
 /* AppComponent's private CSS styles */
+@import "./margin";
+@import "./padding";
+@import "./position";
+@import "./text";
+@import "./border";
+
+
 body{
   margin: 0;
 }

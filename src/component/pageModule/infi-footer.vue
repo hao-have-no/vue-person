@@ -1,6 +1,6 @@
 <template>
-    <div class="infi-footer">
-      gasssssssssssagfsdddddddddddddddddddddddddddddddd
+    <div class="infi-footer text-align-center">
+      个人666
     </div>
 </template>
 

@@ -7,7 +7,7 @@
              text-color="#fff"
              active-text-color="#ffd04b"
     >
-        <div v-for="menu in navRouter">
+        <template v-for="menu in navRouter">
           <el-submenu v-if="menu.children&&menu.children.length" :index="menu.id" :key="menu.id">
             <template slot="title">
               <i :class="menu.icon"></i>
@@ -36,7 +36,7 @@
             <i :class="menu.icon"></i>
             <span slot="title">{{menu.name}}</span>
           </el-menu-item>
-      </div>
+      </template>
     </el-menu>
   </div>
 </template>
@@ -186,13 +186,5 @@
   .nav-content{
     height: calc(100vh - 50px);
     background-color:#545c64;
-  }
-  /*隐藏文字*/
-  .el-menu--collapse  .el-submenu__title span{
-    display: none;
-  }
-  /*隐藏 > */
-  .el-menu--collapse  .el-submenu__title .el-submenu__icon-arrow{
-    display: none;
   }
 </style>

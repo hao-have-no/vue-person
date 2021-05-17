@@ -1,0 +1,157 @@
+@import "./numeric-symbols";
+
+.padding-lg {
+  padding: $x-lg;
+}
+
+.padding-20 {
+  padding: $x-20;
+}
+
+.padding-md {
+  padding: $x-md;
+}
+
+.padding-sm {
+  padding: $x-sm;
+}
+
+.padding-xs {
+  padding: $x-xs;
+}
+
+.padding-vs {
+  padding: $x-xs;
+}
+
+.padding-top-lg {
+  padding-top: $x-lg;
+}
+
+.padding-top-md {
+  padding-top: $x-md;
+}
+
+.padding-top-sm {
+  padding-top: $x-sm;
+}
+
+.padding-top-xs {
+  padding-top: $x-xs;
+}
+
+.padding-top-vs {
+  padding-top: $x-vs;
+}
+.padding-top-none,
+.weight.padding-top-none {
+  padding-top: 0;
+}
+
+.padding-bottom-lg {
+  padding-bottom: $x-lg;
+}
+
+.padding-bottom-md {
+  padding-bottom: $x-md;
+}
+
+.padding-bottom-sm {
+  padding-bottom: $x-sm;
+}
+
+.padding-bottom-xs {
+  padding-bottom: $x-xs;
+}
+
+.padding-bottom-vs {
+  padding-bottom: $x-vs;
+}
+
+.padding-left-lg {
+  padding-left: $x-lg;
+}
+
+.padding-left-md {
+  padding-left: $x-md;
+}
+
+.padding-left-sm {
+  padding-left: $x-sm;
+}
+
+.padding-left-xs {
+  padding-left: $x-xs;
+}
+
+.padding-left-vs{
+  padding-left: $x-vs;
+}
+
+.padding-left-none,
+.weight.padding-left-none {
+  padding-left: 0;
+}
+
+.padding-right-none,
+.weight.padding-right-none {
+  padding-right: 0;
+}
+
+.padding-right-lg {
+  padding-right: $x-lg;
+}
+
+.padding-right-md {
+  padding-right: $x-md;
+}
+
+.padding-right-sm {
+  padding-right: $x-sm;
+}
+
+.padding-right-xs {
+  padding-right: $x-xs;
+}
+
+// 横向 padding
+.padding-transverse-xs {
+  @extend .padding-right-xs;
+  @extend .padding-left-xs;
+}
+
+.padding-transverse-sm {
+  @extend .padding-right-sm;
+  @extend .padding-left-sm;
+}
+
+.padding-transverse-md {
+  @extend .padding-right-md;
+  @extend .padding-left-md;
+}
+
+.padding-transverse-none {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+// 竖向 padding
+.padding-vertical-vs {
+  @extend .padding-top-vs;
+  @extend .padding-bottom-vs;
+}
+
+.padding-vertical-xs {
+  @extend .padding-top-xs;
+  @extend .padding-bottom-xs;
+}
+
+.padding-vertical-sm {
+  @extend .padding-top-sm;
+  @extend .padding-bottom-sm;
+}
+
+.padding-vertical-md {
+  @extend .padding-top-md;
+  @extend .padding-bottom-md;
+}

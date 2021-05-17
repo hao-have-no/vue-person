@@ -14,7 +14,7 @@ import element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 // import CreateAPI from 'vue-create-api';
 // import CartAnim from './component/cart-anim/CartAnim';
-// import create from './utils/utils' //小球
+import filters from './utils/filters' //全局筛选
 
 //创建组件实例
 import craete from './utils/create'
@@ -30,6 +30,10 @@ Vue.config.productionTip = false;
 
 //给vue注册实例方法,使用$createCardAnim来创建
 
+//动态注册过滤器
+for (var i in filters) {
+  Vue.filter(i, filters[i]);
+}
 
 //动态导入
 axios.defaults.baseURL = process.env.API_ROOT;

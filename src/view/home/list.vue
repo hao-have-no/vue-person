@@ -2,9 +2,9 @@
   <div>
     <el-page-header @back="goBack" content="用户列表">
     </el-page-header>
-    <el-form :inline="true" :model="formInline" class="demo-form-inline">
+    <el-form :inline="true" :model="formInline" class="demo-form-inline text-align-left margin-top-md margin-left-sm">
       <el-form-item label="用户ID">
-        <el-input v-model="formInline.user" debounce="1000" @input="searchSubmit" placeholder="用户ID"></el-input>
+        <el-input v-model="formInline.user" @input="searchSubmit" placeholder="用户ID"></el-input>
       </el-form-item>
       <el-form-item label="用户类型">
         <el-select v-model="formInline.region" placeholder="活动区域" @change="searchSubmit">
@@ -15,7 +15,46 @@
       <el-form-item>
         <el-button type="primary" @click="onSubmit">查询</el-button>
       </el-form-item>
-  </el-form>
+    </el-form>
+    <el-table
+      v-if="tableData&&tableData.length"
+      :data="tableData"
+      :default-sort = "{prop: 'date'}"
+      style="width: 100%">
+      <el-table-column
+        label="日期"
+        prop="date"
+        sortable
+       >
+        <template slot-scope="scope">
+          <i class="el-icon-time"></i>
+          <span style="margin-left: 10px">{{ scope.row.date }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="name"
+        label="姓名"
+        >
+        <template slot-scope="scope">
+            <span>{{scope.row.name |updateName }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="address"
+        label="地址"
+      >
+      </el-table-column>
+      <el-table-column label="操作">
+        <template slot-scope="scope">
+          <el-button size="mini"
+                     @click="handleEdit(scope.$index, scope.row)"
+          >编辑</el-button>
+          <el-button size="mini" type="danger"
+          @click="handleDelete(scope.$index, scope.row)"
+          >删除</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
 
     <!--<div id="asset">-->
       <!--<p>-->
@@ -56,10 +95,8 @@
 </template>
 
 <script>
-  import ContentDetail from './detail';
-    export default {
-        name: "list",
-      components:{ContentDetail},
+    export default{
+        name: "UserList",
       data() {
         return {
           formInline: {
@@ -69,21 +106,64 @@
           tableHeader:[],
           message : "Welcome wuyou",
           view:true,
-          excludeName:''
+          excludeName:'',
+          tableData:[]
         }
       },
+
+      created(){
+        this.tableData = [{
+          id:'1',
+          date: '2016-05-02',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }, {
+          id:'2',
+          date: '2016-05-04',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1517 弄'
+        }, {
+          id:'3',
+          date: '2016-05-01',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1519 弄'
+        }, {
+          id:'4',
+          date: '2016-05-03',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1516 弄'
+        }]
+      },
+
+      mounted(){
+        console.log('mounted',this.tableData)
+      },
+
       methods: {
+        soreAddress(row, column){
+          console.log('soreAddress',row)
+          return `${row.address}234`;
+        },
+
+        handleEdit(index, row) {
+          const path = `user-detail/${row.id}`;
+          this.$router.push(path)
+        },
+
+        handleDelete(index,row){
+          this.tableData = this.tableData.filter(item=>item.id !== row.id)
+        },
 
       // vue生命周期，父before create, create ,beforeMounted  子before create, create ,beforeMounted mounted 父 mounted
-      //   onSubmit() {
-      //     console.log('submit!',this.formInline);
-      //   },
-      //   goBack(){
-      //     console.log('back')
-      //   },
-      //   searchSubmit(){
-      //     console.log('search',this.formInline)
-      //   },
+        onSubmit() {
+          console.log('submit!',this.formInline);
+        },
+        goBack(){
+          console.log('back')
+        },
+        searchSubmit(){
+          console.log('search',this.formInline)
+        },
       //   change(){
       //     this.message = '修改过后的数据';
       //     this.view = !this.view;
