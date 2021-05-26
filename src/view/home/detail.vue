@@ -1,6 +1,6 @@
 <template>
   <div>
-   1234567
+
   </div>
 </template>
 
@@ -14,10 +14,10 @@
 
         },
         computed(){
-          console.log('computed')
+          // console.log('computed')
         },
         watch(){
-          console.log('watch')
+          // console.log('watch')
         },
         created() {
 

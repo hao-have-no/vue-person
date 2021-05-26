@@ -1,7 +1,8 @@
 <template>
-  <div>
+  <div class="panel panel-default border padding-md">
     <el-page-header @back="goBack" content="用户列表">
     </el-page-header>
+    <work-bench v-if="flowList.length" @work-status="taskSource" :flow-list="flowList"></work-bench>
     <el-form :inline="true" :model="formInline" class="demo-form-inline text-align-left margin-top-md margin-left-sm">
       <el-form-item label="用户ID">
         <el-input v-model="formInline.user" @input="searchSubmit" placeholder="用户ID"></el-input>
@@ -66,35 +67,12 @@
       <!--<button @click="change">控制子组件显示隐藏</button>&nbsp;-->
       <!--<button @click="changeexclude">控制子组件是否使用keep-alive,默认使用</button>-->
     <!--</div>-->
-
-    <!--列表-->
-    <!--<el-table-->
-      <!--:data="tableData"-->
-      <!--border-->
-      <!--style="width: 100%">-->
-      <!--<el-table-column-->
-        <!--prop="date"-->
-        <!--label="用户名"-->
-        <!--width="180">-->
-      <!--</el-table-column>-->
-      <!--<el-table-column-->
-        <!--prop="name"-->
-        <!--label="姓名"-->
-        <!--width="180">-->
-      <!--</el-table-column>-->
-      <!--<el-table-column-->
-        <!--prop="address"-->
-        <!--label="性别">-->
-      <!--</el-table-column>-->
-      <!--<el-table-column-->
-        <!--prop="address"-->
-        <!--label="年龄">-->
-      <!--</el-table-column>-->
-    <!--</el-table>-->
   </div>
 </template>
 
 <script>
+  import {mapState,mapActions,mapGetters} from 'vuex';
+  import WorkBench from '../../component/work-bench/bench-list.vue';
     export default{
         name: "UserList",
       data() {
@@ -107,7 +85,17 @@
           message : "Welcome wuyou",
           view:true,
           excludeName:'',
-          tableData:[]
+          tableData:[],
+          paramList:[
+            {label:'姓名',type:'text',value:"name",list:[]},
+            {label:'日期',type:'date',value:"time",list:[]},
+            {label:'会员类型',type:'select',value:"goodType",list:[]},
+            {label:'任务类型',type:'select',value:"taskType",list:[]},
+            {label:'业务类型',type:'select',value:"professionType",list:[],valLabel:'desc',val:'code'},
+            {label:'任务状态',type:'select',value:"status",list:[],valLabel:'desc',val:'code'},
+            {label:'任务来源',type:'select',value:"source",list:[],valLabel:'name',val:'label'}
+          ],
+          tabStatus:'',
         }
       },
 
@@ -132,7 +120,8 @@
           date: '2016-05-03',
           name: '王小虎',
           address: '上海市普陀区金沙江路 1516 弄'
-        }]
+        }],
+        this.getAllParams()
       },
 
       mounted(){
@@ -140,6 +129,38 @@
       },
 
       methods: {
+        ...mapActions(['getFlow','getFilterEnumerate']),
+        getAllParams(){
+          this.getFlow();
+          // this.getFilterEnumerate(); //获取筛选项枚举,
+          // this.initSearchParams();
+          // this.taskSource();
+        },
+        initSearchParams(){
+          this.patiState = "fetching";
+          //工作台列表
+          this.tableData = [];
+
+          this.jumpPage = ""; //跳转页面
+          //tab-医生工作台
+          this.tabStatus='';
+          this.searchParams={
+            name:'',
+            time:'',
+            goodType:'',
+            taskType:'',
+            status:'',
+            createTime:'',
+            endTime:'',
+            professionType:'',
+            source:''
+          };
+          this.paramList[5]['list'] = [];
+        },
+        taskSource(data){
+          console.log(data);
+
+        },//获取任务来源
         soreAddress(row, column){
           console.log('soreAddress',row)
           return `${row.address}234`;
@@ -225,10 +246,14 @@
       //   console.log(this.$el);
       //   console.log("%c%s", "color:red","data   : " + this.$data);
       //   console.log("%c%s", "color:red","message: " + this.message)
+      },
+
+      computed:{
+        ...mapGetters(['flowList'])
+      },
+
+      components:{
+        WorkBench
       }
     }
 </script>
-
-<style scoped>
-
-</style>

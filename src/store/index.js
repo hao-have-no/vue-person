@@ -6,6 +6,7 @@ import Vuex from "vuex"
 import user from './users'
 import goods from './goods'
 import cart from './carts'
+import workBench from './work-bench';
 
 Vue.use(Vuex);
 
@@ -13,7 +14,8 @@ export default new Vuex.Store({
   modules:{
     user,
     goods,
-    cart
+    cart,
+    workBench
   },
   // namespace:true,
   state:{
