@@ -11,7 +11,8 @@
     "test": "npm run unit",
     "lint": "eslint --ext .js,.vue src test/unit",
     "build": "cross-env NODE_ENV=production env_config=prod node build/build.js",
-    "build--test": "cross-env NODE_ENV=testing env_config=test node build/build.js"
+    "build--test": "cross-env NODE_ENV=testing env_config=test node build/build.js",
+    "genlog": "conventional-changelog -p angular -i log/CHANGELOG.md -s"
   },
   "dependencies": {
     "async-validator": "^2.0.1",
