@@ -1,5 +1,5 @@
 <template>
-  <div class="nav-content" v-if="navRouter&&navRouter.length">
+  <div class="nav-content" v-if="navRouter&&navRouter.length&&$store.state.user.isLogin">
     <el-menu class="el-menu-vertical-demo" :default-active="activeRouter"
              :unique-opened="true"
              :collapse="isCollapse"
@@ -53,7 +53,7 @@
       return {
         isCollapse: false,
         activeRouter: "",
-        navRouter: [],
+        navRouter: []
       };
     },
     methods: {
@@ -65,6 +65,7 @@
       },
       pathRoute(option) {
         this.activeRouter = option.id;
+        localStorage.setItem('initRouter',option.id);
         this.$router.push({path: option.url})
       },
       findRoute() {
@@ -88,7 +89,8 @@
        const res = findMark(onRoute,this.navRouter);
 
         console.log('result',result,res);
-        this.activeRouter = result ? result.id : '1-1';
+        this.activeRouter = result ? result.id : localStorage.getItem('initRouter');
+        console.log('activeRouter',this.activeRouter);
       }
     },
     mounted() {
@@ -177,8 +179,8 @@
           this.$nextTick(()=>{
             this.isCollapse = val;
           });
-      })
-    },
+      });
+    }
   }
 </script>
 

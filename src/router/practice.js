@@ -19,10 +19,18 @@ export default [
   {
     path:'/user-list',
     component:resolve=>require(['../view/home/list'],resolve),
+    meta:{
+      //增加权限标识
+      auth:true
+    }
   },
   {
     path:'/user-detail/:id',
     component:resolve=>require(['../view/home/detail'],resolve),
+    meta:{
+      //增加权限标识
+      auth:true
+    }
   },
   {
     //验证-匿名视图-复合路由

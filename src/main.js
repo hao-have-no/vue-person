@@ -63,18 +63,18 @@ axios.defaults.timeout=300000;
 Vue.prototype.$http= axios;
 Vue.prototype.$store=store;
 Vue.prototype.$bus = new Vue();
-
-router.beforeEach((to,from,next)=>{
-  console.log('berore each',to,from)
-  next();
-});
-router.beforeResolve((to,from,next)=>{
-  console.log('berore resolve',to,from);
-  next();
-});
-router.afterEach((to,from,next)=>{
-  console.log('after each')
-})
+//
+// router.beforeEach((to,from,next)=>{
+//   console.log('berore each',to,from)
+//   next();
+// });
+// router.beforeResolve((to,from,next)=>{
+//   console.log('berore resolve',to,from);
+//   next();
+// });
+// router.afterEach((to,from,next)=>{
+//   console.log('after each')
+// })
 
 //增加全局路由守卫
 // beforeEach(经常用，一般用于权限鉴定),beforeResolve（比前置钩子晚一些）,afterEach（）

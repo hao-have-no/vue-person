@@ -1,5 +1,5 @@
 <template>
-    <div class="infi-footer text-align-center">
+    <div class="infi-footer text-align-center" v-if="$store.state.user.isLogin">
       个人666
     </div>
 </template>

@@ -2,7 +2,7 @@
   <div class="panel panel-default border padding-md">
     <el-page-header @back="goBack" content="用户列表">
     </el-page-header>
-    <work-bench v-if="flowList.length" @work-status="taskSource" :flow-list="flowList"></work-bench>
+    <work-bench v-if="flowList&&flowList.length" @work-status="taskSource" :flow-list="flowList"></work-bench>
     <el-form :inline="true" :model="formInline" class="demo-form-inline text-align-left margin-top-md margin-left-sm">
       <el-form-item label="用户ID">
         <el-input v-model="formInline.user" @input="searchSubmit" placeholder="用户ID"></el-input>

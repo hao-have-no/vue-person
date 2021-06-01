@@ -2,22 +2,21 @@
 export default [
   {
       path:'/',
-      redirect:'/list'
+      redirect:'/list',
   },
   {
     path: '/list',
     component:resolve => require(['./hello'],resolve),
-    name:'index'
+    name:'index',
+    meta:{
+      //增加权限标识
+      auth:true
+    }
   },
   {
     path: '/login',
     component:resolve=>require(['./login/index'],resolve),
-    name: 'other',
-  },
-  {
-    path:'/login',
-    component:resolve=>require(['./login/Login'],resolve),
-    name:'login'
+    name: 'login'
   },
   {
     path:'/logout',
