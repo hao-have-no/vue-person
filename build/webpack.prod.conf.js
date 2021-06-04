@@ -45,6 +45,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     new webpack.DefinePlugin({
       'process.env': env
     }),
+    // 对js文件进行压缩，从而减小js文件的大小，加速load速度。
     new UglifyJsPlugin({
       uglifyOptions: {
         compress: {

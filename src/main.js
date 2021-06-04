@@ -30,7 +30,7 @@ Vue.config.productionTip = false;
 
 //给vue注册实例方法,使用$createCardAnim来创建
 
-//动态注册过滤器
+//全局动态注册过滤器
 for (var i in filters) {
   Vue.filter(i, filters[i]);
 }

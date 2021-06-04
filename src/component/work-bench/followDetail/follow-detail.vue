@@ -1,17 +1,26 @@
 <template>
     <div>
-123456
+      {{content}}
+      {{msg|contentFilter}}
     </div>
 </template>
 
 <script>
+    import {contentFix} from '@/utils/contentFilter.js'
     export default {
         name: "FollowDetail",
         props:{
-          xlPatientId:"",
-          version:"",
-          hideButtons:"",
-          hideTimeLine:""
+          content:''
+        },
+        data(){
+          return {
+            msg:"init-follow"
+          }
+        },
+        filters:{
+            contentFilter(content){
+              return contentFix(content);
+            }
         }
     }
 </script>
