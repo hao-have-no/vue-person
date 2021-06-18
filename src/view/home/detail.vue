@@ -1,7 +1,8 @@
 <template>
   <div>
+    <bread-crumb></bread-crumb>
     <module-title #titleName>
-       <p>详情<span class="color-red">12</span></p>
+       <p>{{pageTitle}}</p>
     </module-title>
     <div class="panel panel-default">
         <work-search v-model="filterContent"></work-search>
@@ -16,15 +17,18 @@
     import ModuleTitle from "../../component/module-title/module-title";
     import WorkSearch from "../../component/work-bench/work-search";
     import FollowDetail from "../../component/work-bench/followDetail/follow-detail";
+    import BreadCrumb from "../../component/utils/bread-crumb";
+    import {breadCrumb} from '@/utils/contentFilter'
     export default {
         name: "UserDetail",
-        components: {FollowDetail, WorkSearch, ModuleTitle},
+        components: {BreadCrumb, FollowDetail, WorkSearch, ModuleTitle},
         props: {
             msg: String
           },
         data(){
           return{
             filterContent:"",
+            pageTitle:"详情",
             content:"init"
           }
         },
@@ -44,7 +48,13 @@
           }
         },
         created(){
-
+          breadCrumb({
+            opera: 'save',
+            data: {
+              title: this.pageTitle,
+              level: 2,
+            }
+          });
         }
     }
 </script>

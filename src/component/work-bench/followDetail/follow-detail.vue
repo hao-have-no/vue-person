@@ -21,8 +21,11 @@
             contentFilter(content){
               return contentFix(content);
             }
+        },
+        created() {
+
         }
-    }
+      }
 </script>
 
 <style scoped>

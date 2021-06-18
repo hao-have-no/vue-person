@@ -1,7 +1,8 @@
 <template>
   <div class="panel panel-default border padding-md">
-    <el-page-header @back="goBack" content="用户列表">
-    </el-page-header>
+    <!--<el-page-header content="用户列表">-->
+    <!--</el-page-header>-->
+    <page-title :modal-title="pageTitle"></page-title>
     <work-bench v-if="flowList&&flowList.length" @work-status="taskSource" :flow-list="flowList"></work-bench>
     <el-form :inline="true" :model="formInline" class="demo-form-inline text-align-left margin-top-md margin-left-sm">
       <el-form-item label="用户ID">
@@ -70,10 +71,13 @@
 <script>
   import {mapState,mapActions,mapGetters} from 'vuex';
   import WorkBench from '../../component/work-bench/bench-list.vue';
+  import PageTitle from "../../component/utils/page-title";
+  import {breadCrumb} from "@/utils/contentFilter"
     export default{
-        name: "UserList",
+      name: "UserList",
       data() {
         return {
+          pageTitle:'用户列表',
           formInline: {
             user: '',
             region: ''
@@ -118,7 +122,14 @@
           name: '王小虎',
           address: '上海市普陀区金沙江路 1516 弄'
         }],
-        this.getAllParams()
+        this.getAllParams();
+        console.log(this.$route.path);
+        breadCrumb({
+          opera: 'save',
+          data: {
+            title:this.pageTitle
+          }
+        })
       },
 
       mounted(){
@@ -165,10 +176,11 @@
 
         handleEdit(index, row) {
           const path = `user-detail/${row.id}`;
-          this.$router.push(path)
+          this.$router.push(path);
         },
 
         handleDelete(index,row){
+          sendMes('updateMes','test---->')
           this.tableData = this.tableData.filter(item=>item.id !== row.id)
         },
 
@@ -250,6 +262,7 @@
       },
 
       components:{
+        PageTitle,
         WorkBench
       }
     }
