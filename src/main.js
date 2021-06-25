@@ -21,8 +21,8 @@ Vue.mixin({
   }
 })
 
-// 每个请求一个实例
-// 调用者是entry-server
+// 工厂模式:每个请求创建一个实例
+// 调用者是entry-server(传入上下文对象)
 export function createApp(context) {
   const router = createRouter()
   const store = createStore()

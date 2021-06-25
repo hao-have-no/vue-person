@@ -1,6 +1,7 @@
 import { createApp } from "./main";
 
 // 客户端激活，这里的代码都在浏览器执行
+// 挂载html模板，激活交互流程
 // 创建Vue实例
 const {app, router, store} = createApp()
 

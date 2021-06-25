@@ -1,16 +1,16 @@
 import { createApp } from "./main"
 
-// 首屏渲染，这里代码都在服务端执行
+// 首屏渲染（生成首屏的html），这里代码都在服务端执行
 // 创建Vue实例
 // 调用者是将来渲染器renderer
 export default context => {
-  // 为了让renderer可以处理异步结果，这里应该返回Promise
+  // 为了让renderer可以处理异步任务／结果，这里应该返回Promise
   return new Promise((resolve, reject) => {
     // 创建vue实例和路由实例
     const { app, router, store } = createApp(context)
 
     // 获取用户请求url，从而知道要渲染那个页面
-    // 跳转至首屏
+    // 跳转至对应的页面，最后由渲染器渲染
     router.push(context.url)
 
     // 监听路由器ready事件，确保异步任务都完成
@@ -26,7 +26,8 @@ export default context => {
         return reject({ code: 404 })
       }
 
-      // 遍历它们
+      // 遍历它们，判断是否含有预取数据的组件，进行处理
+      //promise.all 处理所有的异步任务
       Promise.all(matchedComponents.map(comp => {
         // 看看它们有没有asyncData选项
         if (comp.asyncData) {
