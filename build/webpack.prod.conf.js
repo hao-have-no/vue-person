@@ -187,7 +187,7 @@ if (config.build.productionGzip) {
         config.build.productionGzipExtensions.join('|') +
         ')$'
       ),
-      threshold: 10240,
+      threshold: 10240,// 对超过10k的数据压缩
       minRatio: 0.8
     })
   )
